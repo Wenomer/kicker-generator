@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,77 +26,30 @@
 </head>
 
 <body>
-
-<!-- Navigation -->
-<!--<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
-    <!--<div class="container">-->
-        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-        <!--<div class="navbar-header">-->
-            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
-                <!--<span class="sr-only">Toggle navigation</span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-                <!--<span class="icon-bar"></span>-->
-            <!--</button>-->
-            <!--<a class="navbar-brand" href="#">-->
-                <!--<img src="http://placehold.it/150x50&text=Tournament Generator" alt="">-->
-            <!--</a>-->
-        <!--</div>-->
-         <!--Collect the nav links, forms, and other content for toggling -->
-        <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li>-->
-                    <!--<a href="#">About</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a href="#">Services</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a href="#">Contact</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-    <!--</div>-->
-    <!--&lt;!&ndash; /.container &ndash;&gt;-->
-<!--</nav>-->
-
-<!-- Page Content -->
-<div class="container">
+<div class="container" id="application">
     <div class="row">
         <div class="col-lg-8">
             <h3>Matches</h3>
-            <table class="table table-bordered table-hover">
+            <table class="table table-bordered table-hover match-table">
                 <tr class="active">
                     <th>#</th>
                     <th colspan="2">Team 1</th>
                     <th></th>
                     <th colspan="2">Team 2</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Alex</td>
-                    <td>Mike</td>
-                    <td>VS</td>
-                    <td>Sergey</td>
-                    <td>Alexander</td>
-                </tr>
             </table>
         </div>
         <div class="col-lg-4">
             <h3>
                 Players
-                <button type="button" class="btn btn-default">
+                <button id="add-player" type="button" class="btn btn-primary">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 </button>
+                <button id="generate-schedule" type="button" class="btn btn-success">
+                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                </button>
             </h3>
-            <form class="form-inline">
-                <div class="form-group">
-                    <input type="text" class="form-control">
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                    </button>
-                </div>
+            <form id="players-form" class="form-inline">
             </form>
         </div>
     </div>
@@ -113,6 +65,26 @@
     $(document).ready(function() {
         var application = new Kicker();
     });
+</script>
+
+<script id="player-template" type="application/template">
+    <div class="form-group form-line">
+        <input type="text" class="form-control">
+        <button type="button" class="btn btn-default remove-player">
+            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        </button>
+    </div>
+</script>
+
+<script id="match-template" type="application/template">
+    <tr>
+        <td><?= number?></td>
+        <td><b>A:</b> <?= t1[0]?></td>
+        <td><b>G:</b> <?= t1[1]?></td>
+        <td><b>VS</b></td>
+        <td><b>A:</b> <?= t2[0]?></td>
+        <td><b>G:</b> <?= t2[1]?></td>
+    </tr>
 </script>
 
 </body>
