@@ -33,6 +33,7 @@ Kicker.prototype = {
             for (var j = i + 1 ; j < teams.length; j++) {
                 if (teams[i][0] !== teams[j][0] && teams[i][0] !== teams[j][1] && teams[i][1] !== teams[j][0] && teams[i][1] !== teams[j][1]) {
                     matches.push([teams[i], teams[j]]);
+                    matches.push([this.reverseTeam(teams[i]), this.reverseTeam(teams[j])]);
                 }
             }
         }
@@ -40,10 +41,21 @@ Kicker.prototype = {
         this.renderMatchesTable(matches);
     },
 
+    reverseTeam: function (team) {
+        return [team[1], team[0]];
+    },
+
     renderMatchesTable: function (matches) {
+        this.matchesTable.find('.match-line').remove();
+        var template = $('#match-template').html();
+
+        var compiled = _.template(template);
+        compiled({ 'user': 'fred' });
+
         _.each(matches, function (match) {
-            console.log(match);
-        });
+            console.log({match: match});
+            this.matchesTable.append(compiled({match: match}));
+        }, this);
     },
 
     onAddPlayer: function(e) {
