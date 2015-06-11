@@ -1,6 +1,5 @@
 <?php
 $loader = require_once __DIR__ . '/../vendor/autoload.php';
-//$loader->add('Kicker', __DIR__.'/../src');
 
 $app = new Silex\Application();
 // Please set to false in a production environment
@@ -25,13 +24,18 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     ),
 ));
 
-$app['frontend.controller'] = $app->share(function() use ($app) {
+$db = $app['db'];
+
+$app['repository.player'] = $app->share(function() use ($db) {
+    return new \Kicker\Repository\PlayerRepository($db);
+});
+
+$app['controller.frontend'] = $app->share(function() use ($app) {
     return new \Kicker\Controller\FrontendController($app);
 });
 
-$db = $app['db'];
-
-$app->get('/', 'frontend.controller:generationAction');
+$app->get('/', 'controller.frontend:manualMatchAction');
+$app->get('/tournament', 'controller.frontend:tournamentAction');
 
 //$app->get('/', function() use ($app, $db) {
 //    $players = $db->fetchAll('SELECT * FROM players');
