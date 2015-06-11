@@ -41,6 +41,7 @@ Kicker.prototype = {
         this.renderMatchesTable(matches);
     },
 
+    
     reverseTeam: function (team) {
         return [team[1], team[0]];
     },
