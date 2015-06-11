@@ -1,0 +1,56 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <div class="container" id="application">
+        <div class="row">
+            <div class="col-lg-8">
+                <h3>Matches</h3>
+                <table class="table table-bordered table-hover match-table">
+                    <tr class="active">
+                        <th>#</th>
+                        <th colspan="2">Team 1</th>
+                        <th></th>
+                        <th colspan="2">Team 2</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <h3>
+                    Players
+                    <button id="add-player" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <button id="generate-schedule" type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                    </button>
+                </h3>
+                <form id="players-form" class="form-inline">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script id="player-template" type="application/template">
+        <div class="form-group form-line">
+            <select class="form-control">
+                {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="button" class="btn btn-default remove-player">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+            </button>
+        </div>
+    </script>
+
+    <script id="match-template" type="application/template">
+        <tr>
+            <td><?= number?></td>
+            <td><b>A:</b> <?= t1[0]?></td>
+            <td><b>G:</b> <?= t1[1]?></td>
+            <td><b>VS</b></td>
+            <td><b>A:</b> <?= t2[0]?></td>
+            <td><b>G:</b> <?= t2[1]?></td>
+        </tr>
+    </script>
+{% endblock body %}

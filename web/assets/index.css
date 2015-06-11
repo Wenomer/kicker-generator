@@ -2,6 +2,10 @@
     margin-bottom: 7px!important;
 }
 
+.form-line select {
+    width: 200px!important;
+}
+
 .match-table {
     margin-top: 18px;
 }
