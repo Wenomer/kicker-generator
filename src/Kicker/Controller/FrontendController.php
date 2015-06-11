@@ -25,4 +25,11 @@ class FrontendController
             'players' => $this->app['repository.player']->findAll()
         ]);
     }
+
+    public function statisticsAction()
+    {
+        return $this->app['twig']->render('statistics.html.twig', [
+            'target' => 'statistics'
+        ]);
+    }
 }

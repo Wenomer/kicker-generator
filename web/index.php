@@ -36,6 +36,7 @@ $app['controller.frontend'] = $app->share(function() use ($app) {
 
 $app->get('/', 'controller.frontend:manualMatchAction');
 $app->get('/tournament', 'controller.frontend:tournamentAction');
+$app->get('/statistics', 'controller.frontend:statisticsAction');
 
 //$app->get('/', function() use ($app, $db) {
 //    $players = $db->fetchAll('SELECT * FROM players');

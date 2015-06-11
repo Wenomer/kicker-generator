@@ -1,18 +1,18 @@
-var Kicker = function () {
-    this.app = $('#application');
+var Tournament = function () {
+    this.page = $('#page');
     this.playersForm = $('#players-form');
     this.generateScheduleButton = $('#generate-schedule').hide();
-    this.matchesTable = this.app.find('.match-table');
+    this.matchesTable = this.page.find('.match-table');
     this.players = [];
     this.bind();
 };
 
-Kicker.prototype = {
+Tournament.prototype = {
     bind: function () {
-        this.app.on('click', '#generate-schedule', this.generate.bind(this));
-        this.app.on('click', '#add-player', this.onAddPlayer.bind(this));
-        this.app.on('click', '.remove-player', this.onRemovePlayer.bind(this));
-        this.app.on('click', '#add-player, .remove-player', this.validateGenerationButton.bind(this));
+        this.page.on('click', '#generate-schedule', this.generate.bind(this));
+        this.page.on('click', '#add-player', this.onAddPlayer.bind(this));
+        this.page.on('click', '.remove-player', this.onRemovePlayer.bind(this));
+        this.page.on('click', '#add-player, .remove-player', this.validateGenerationButton.bind(this));
     },
 
     generate: function () {

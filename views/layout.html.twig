@@ -42,12 +42,13 @@
             <ul class="nav navbar-nav">
                 <li class="{% if(target == 'manual-match') %} active {%endif%}"><a href="/">Manual Match</a></li>
                 <li class="{% if(target == 'tournament') %} active {%endif%}"><a href="/tournament">Tournament</a></li>
+                <li class="{% if(target == 'statistics') %} active {%endif%}"><a href="/statistics">Statistics</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div>
 </nav>
 
-<div class="container" id="application">
+<div class="container">
     {% block body %}
 
     {% endblock %}
@@ -59,11 +60,9 @@
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.9.3/lodash.min.js"></script>
 <script type="text/javascript" src="assets/index.js"></script>
 
-<script type="application/javascript">
-    $(document).ready(function() {
-        var application = new Kicker();
-    });
-</script>
+{% block jscontroller %}
+
+{% endblock %}
 
 </body>
 

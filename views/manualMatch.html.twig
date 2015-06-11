@@ -1,5 +1,68 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    MANUAL MATCH
+        <div class="row">
+            <div class="col-lg-8">
+                <form class="game-form clearfix">
+                    <div class="col-lg-4">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" id="panel-title">Red Team</h3>
+                            </div>
+                            <div class="panel-body">
+                                <select class="form-control">
+                                    {% for player in players %}
+                                        <option value="{{ player.id }}">{{ player.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select class="form-control">
+                                    {% for player in players %}
+                                        <option value="{{ player.id }}">{{ player.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" id="panel-title">Blue Team</h3>
+                            </div>
+                            <div class="panel-body">
+                                <select class="form-control">
+                                    {% for player in players %}
+                                        <option value="{{ player.id }}">{{ player.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <select class="form-control">
+                                    {% for player in players %}
+                                        <option value="{{ player.id }}">{{ player.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" id="panel-title">Score</h3>
+                            </div>
+                            <div class="panel-body">
+                                <input class="input-score red" type="text" placeholder="0"/>
+                                <input class="input-score blue" type="text" placeholder="0"/>
+                                <input class="btn btn-success save-score" type="button" value="Save"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 {% endblock body %}
+
+{% block jscontroller %}
+    <script type="application/javascript">
+        $(document).ready(function() {
+            var controller = new Kicker();
+        });
+    </script>
+{% endblock %}

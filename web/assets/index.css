@@ -9,3 +9,31 @@
 .match-table {
     margin-top: 18px;
 }
+
+.game-form {
+    border: 1px solid rgb(221, 221, 221);
+    padding-top: 17px;
+    margin-bottom: 15px;
+}
+.game-form .input-score {
+    width: 30%;
+    line-height: 71px;
+    font-size: 40px;
+    padding-left: 15px;
+}
+
+.game-form .input-score.red {
+    background-color: #f2dede;
+}
+.game-form .input-score.blue {
+    background-color: #d9edf7;
+}
+.game-form .save-score {
+    width: 35%;
+    height: 77px;
+    margin-top: -21px;
+    font-size: 18px;
+}
+.game-form select:first-child {
+    margin-bottom: 10px;
+}

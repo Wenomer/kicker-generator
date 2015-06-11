@@ -1,30 +1,32 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-lg-8">
-            <h3>Matches</h3>
-            <table class="table table-bordered table-hover match-table">
-                <tr class="active">
-                    <th>#</th>
-                    <th colspan="2">Team 1</th>
-                    <th></th>
-                    <th colspan="2">Team 2</th>
-                </tr>
-            </table>
-        </div>
-        <div class="col-lg-4">
-            <h3>
-                Players
-                <button id="add-player" type="button" class="btn btn-primary">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </button>
-                <button id="generate-schedule" type="button" class="btn btn-success">
-                    <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-                </button>
-            </h3>
-            <form id="players-form" class="form-inline">
-            </form>
+    <div id="page">
+        <div class="row">
+            <div class="col-lg-8">
+                <h3>Matches</h3>
+                <table class="table table-bordered table-hover match-table">
+                    <tr class="active">
+                        <th>#</th>
+                        <th colspan="2">Team 1</th>
+                        <th></th>
+                        <th colspan="2">Team 2</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <h3>
+                    Players
+                    <button id="add-player" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <button id="generate-schedule" type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                    </button>
+                </h3>
+                <form id="players-form" class="form-inline">
+                </form>
+            </div>
         </div>
     </div>
 
@@ -52,3 +54,11 @@
         </tr>
     </script>
 {% endblock body %}
+
+{% block jscontroller %}
+    <script type="application/javascript">
+        $(document).ready(function() {
+            var controller = new Tournament();
+        });
+    </script>
+{% endblock %}
