@@ -33,6 +33,7 @@ MatchForm.prototype = {
     },
 
     blockForm: function(form) {
+        form.css('background-color', '#5cb85c');
         form.find('input[type="text"], input[type="submit"]').prop('disabled', true);
     },
 
