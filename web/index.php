@@ -30,13 +30,27 @@ $app['repository.player'] = $app->share(function() use ($db) {
     return new \Kicker\Repository\PlayerRepository($db);
 });
 
+$app['repository.team'] = $app->share(function() use ($db) {
+    return new \Kicker\Repository\TeamRepository($db);
+});
+
+$app['repository.match'] = $app->share(function() use ($db) {
+    return new \Kicker\Repository\MatchRepository($db);
+});
+
 $app['controller.frontend'] = $app->share(function() use ($app) {
     return new \Kicker\Controller\FrontendController($app);
+});
+
+$app['controller.api'] = $app->share(function() use ($app) {
+    return new \Kicker\Controller\ApiController($app);
 });
 
 $app->get('/', 'controller.frontend:manualMatchAction');
 $app->get('/tournament', 'controller.frontend:tournamentAction');
 $app->get('/statistics', 'controller.frontend:statisticsAction');
+
+$app->post('/api/match', 'controller.api:saveMatchAction');
 
 //$app->get('/', function() use ($app, $db) {
 //    $players = $db->fetchAll('SELECT * FROM players');

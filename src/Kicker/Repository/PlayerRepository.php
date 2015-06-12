@@ -2,14 +2,8 @@
 
 namespace Kicker\Repository;
 
-class PlayerRepository
+class PlayerRepository extends Repository
 {
-    protected $db;
-
-    public function __construct($db) {
-        $this->db = $db;
-    }
-
     public function findAll()
     {
         return $this->db->fetchAll('SELECT * FROM players');

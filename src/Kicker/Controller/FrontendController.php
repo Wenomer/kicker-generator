@@ -2,14 +2,8 @@
 
 namespace Kicker\Controller;
 
-class FrontendController
+class FrontendController extends Controller
 {
-    protected $app;
-
-    public function __construct($app) {
-        $this->app = $app;
-    }
-
     public function tournamentAction()
     {
         return $this->app['twig']->render('tournament.html.twig', [

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2015-06-11 12:18:27
+Date: 2015-06-12 13:09:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -68,8 +68,8 @@ CREATE TABLE `teams` (
   `id` int(3) unsigned NOT NULL AUTO_INCREMENT,
   `goalkeeper_id` tinyint(3) unsigned NOT NULL,
   `forward_id` tinyint(3) unsigned NOT NULL,
-  `hash` char(32) NOT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `team_forward_goalkeeper` (`goalkeeper_id`,`forward_id`) USING BTREE,
   KEY `teams_goalkeeper` (`goalkeeper_id`),
   KEY `teams_forward` (`forward_id`),
   CONSTRAINT `teams_forward` FOREIGN KEY (`forward_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
