@@ -76,16 +76,18 @@
                     <h3 class="panel-title" id="panel-title">Red Team</h3>
                 </div>
                 <div class="panel-body">
-                    <select class="form-control" name="match[red_goalkeeper]">
+                    <input type="hidden" name="match[red_goalkeeper]" value="<% if (match) { %><%=match.redTeam.goalkeeper%><% } %>"/>
+                    <select class="form-control" name="match[red_goalkeeper]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Goalkeeper</option>
                         {% for player in players %}
-                            <option value="{{ player.id }}">{{ player.name }}</option>
+                            <option value="{{ player.id }}" <% if (match && match.redTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
                         {% endfor %}
                     </select>
-                    <select class="form-control" name="match[red_forward]">
+                    <input type="hidden" name="match[red_forward]" value="<% if (match) { %><%=match.redTeam.forward%><% } %>"/>
+                    <select class="form-control" name="match[red_forward]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Forward</option>
                         {% for player in players %}
-                            <option value="{{ player.id }}">{{ player.name }}</option>
+                            <option value="{{ player.id }}" <% if (match && match.redTeam.forward == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -97,16 +99,18 @@
                     <h3 class="panel-title" id="panel-title">Blue Team</h3>
                 </div>
                 <div class="panel-body">
-                    <select class="form-control" name="match[blue_goalkeeper]">
+                    <input type="hidden" name="match[blue_goalkeeper]" value="<% if (match) { %><%=match.blueTeam.goalkeeper%><% } %>"/>
+                    <select class="form-control" name="match[blue_goalkeeper]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Goalkeeper</option>
                         {% for player in players %}
-                            <option value="{{ player.id }}">{{ player.name }}</option>
+                            <option value="{{ player.id }}" <% if (match && match.blueTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
                         {% endfor %}
                     </select>
-                    <select class="form-control" name="match[blue_forward]">
+                    <input type="hidden" name="match[blue_forward]" value="<% if (match) { %><%=match.blueTeam.forward%><% } %>"/>
+                    <select class="form-control" name="match[blue_forward]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Forward</option>
                         {% for player in players %}
-                            <option value="{{ player.id }}">{{ player.name }}</option>
+                            <option value="{{ player.id }}" <% if (match && match.blueTeam.forward == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

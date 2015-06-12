@@ -1,12 +1,14 @@
-var MatchForm = function (target) {
+var MatchForm = function (target, isTournament) {
+    this.isTournament = isTournament;
     this.target = target;
     this.template = _.template($('#match-form-template').html());
     this.bind();
 };
 
 MatchForm.prototype = {
-    render: function(data) {
-        this.target.append(this.template(data));
+    render: function(match) {
+        match = match || {redTeam: {goalkeeper: 0, forward: 0}, blueTeam: {goalkeeper: 0, forward: 0}};
+        this.target.append(this.template({match: match, isTournament: this.isTournament}));
     },
 
     bind: function() {
@@ -18,12 +20,20 @@ MatchForm.prototype = {
                 dataType: 'json',
                 success: function(response) {
                     if (response && response.success) {
-                        self.clearForm(form);
+                        if (!self.isTournament) {
+                            self.clearForm(form);
+                        } else {
+                            self.blockForm(form);
+                        }
                     }
                 }
             });
             return false;
         });
+    },
+
+    blockForm: function(form) {
+        form.find('input[type="text"], input[type="submit"]').prop('disabled', true);
     },
 
     clearForm: function(form) {
