@@ -17,4 +17,20 @@ class ApiController extends Controller
 
         return json_encode(['success' => true]);
     }
+
+    public function teamStatisticsAction(Request $request)
+    {
+        $sort = $request->get('sort');
+        $order = $request->get('order');
+
+        return json_encode(['rows' => $this->app['repository.team']->getStatistics($sort, $order)]);
+    }
+
+    public function playerStatisticsAction(Request $request)
+    {
+        $sort = $request->get('sort');
+        $order = $request->get('order');
+
+        return json_encode(['rows' => $this->app['repository.player']->getStatistics($sort, $order)]);
+    }
 }

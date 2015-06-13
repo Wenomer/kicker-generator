@@ -2,56 +2,38 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-lg-3">
-            <h4>Best1</h4>
-            <table class="table table-bordered table-hover match-table">
-                <tr class="active">
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
+        <div class="col-lg-6">
+            <h4>Top 10 Teams</h4>
+            <table class="match-table1" data-toggle="table"
+                   data-url="/api/statistics/team" data-side-pagination="server"
+                   data-sort-name="wins"
+                   data-sort-order="desc">
+                <thead>
                 <tr>
-                    <td>Test 1</td>
-                    <td>1</td>
+                    <th data-field="goalkeeper">Goalkeeper</th>
+                    <th data-field="forward">Forward</th>
+                    <th data-field="wins" data-sortable="true">Wins</th>
+                    <th data-field="matches" data-sortable="true">Matches</th>
+                    <th data-field="win_percent" data-sortable="true">%</th>
                 </tr>
+                </thead>
             </table>
         </div>
-        <div class="col-lg-3">
-            <h4>Best2</h4>
-            <table class="table table-bordered table-hover match-table">
-                <tr class="active">
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
+        <div class="col-lg-6">
+            <h4>Top 10 Players</h4>
+            <table class="match-table1" data-toggle="table"
+                   data-url="/api/statistics/player" data-side-pagination="server"
+                   data-sort-name="wins"
+                   data-sort-order="desc">
+                <thead>
                 <tr>
-                    <td>Test 2</td>
-                    <td>2</td>
+                    <th data-field="goalkeeper">Goalkeeper</th>
+                    <th data-field="forward">Forward</th>
+                    <th data-field="wins" data-sortable="true">Wins</th>
+                    <th data-field="matches" data-sortable="true">Matches</th>
+                    <th data-field="win_percent" data-sortable="true">%</th>
                 </tr>
-            </table>
-        </div>
-        <div class="col-lg-3">
-            <h4>Best3</h4>
-            <table class="table table-bordered table-hover match-table">
-                <tr class="active">
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-                <tr>
-                    <td>Test 3</td>
-                    <td>3</td>
-                </tr>
-            </table>
-        </div>
-        <div class="col-lg-3">
-            <h4>Best4</h4>
-            <table class="table table-bordered table-hover match-table">
-                <tr class="active">
-                    <th>Name</th>
-                    <th>Score</th>
-                </tr>
-                <tr>
-                    <td>Test 4</td>
-                    <td>4</td>
-                </tr>
+                </thead>
             </table>
         </div>
     </div>
