@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-12">
+        <table data-toggle="table"
+               data-url="/api/history" data-side-pagination="server">
+            <thead>
+            <tr>
+                <th data-field="red_goalkeeper_name">RT: Goalkeeper</th>
+                <th data-field="red_forward_name">RT: Forward</th>
+                <th data-field="blue_goalkeeper_name">BT: Goalkeeper</th>
+                <th data-field="blue_forward_name">BT: Forward</th>
+                <th data-field="red_score">Red Score</th>
+                <th data-field="blue_score">Blue Score</th>
+                <th data-field="date">Date</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
+{% endblock body %}

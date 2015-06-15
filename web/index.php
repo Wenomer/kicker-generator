@@ -49,8 +49,10 @@ $app['controller.api'] = $app->share(function() use ($app) {
 $app->get('/', 'controller.frontend:manualMatchAction');
 $app->get('/tournament', 'controller.frontend:tournamentAction');
 $app->get('/statistics', 'controller.frontend:statisticsAction');
+$app->get('/history', 'controller.frontend:historyAction');
 
 $app->post('/api/match', 'controller.api:saveMatchAction');
+$app->get('/api/history', 'controller.api:historyAction');
 $app->get('/api/statistics/team', 'controller.api:teamStatisticsAction');
 $app->get('/api/statistics/player', 'controller.api:playerStatisticsAction');
 $app->get('/api/statistics/color', 'controller.api:colorStatisticsAction');

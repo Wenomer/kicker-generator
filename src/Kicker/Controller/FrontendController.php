@@ -26,4 +26,11 @@ class FrontendController extends Controller
             'target' => 'statistics'
         ]);
     }
+
+    public function historyAction()
+    {
+        return $this->app['twig']->render('history.html.twig', [
+            'target' => 'history',
+        ]);
+    }
 }
