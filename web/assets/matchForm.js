@@ -38,8 +38,27 @@ MatchForm.prototype = {
             return false;
         });
 
-        this.target.on('change', 'select', function() {
+        this.target.on('change', 'select', function(e) {
+            var selects = $(e.currentTarget).closest('form').find('select');
+            var values = _.reduce(selects, function (mem, select){
+                $(select).find('option').show();
+                var val = $(select).val();
+                if (val != 0) {
+                    mem.push(val);
+                }
 
+                return mem;
+            }, []);
+
+            _.each(selects, function(select) {
+                var $select = $(select);
+
+                _.each(values, function(value) {
+                    if ($select.val() != value) {
+                        $select.find('option[value="' + value + '"]').hide();
+                    }
+                });
+            });
         });
     },
 
