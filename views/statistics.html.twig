@@ -2,33 +2,19 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-lg-6">
-            <h4>Top 10 Teams</h4>
-            <table class="match-table1" data-toggle="table"
-                   data-url="/api/statistics/team" data-side-pagination="server"
-                   data-sort-name="wins"
-                   data-sort-order="desc">
-                <thead>
-                <tr>
-                    <th data-field="goalkeeper">Goalkeeper</th>
-                    <th data-field="forward">Forward</th>
-                    <th data-field="wins" data-sortable="true">Wins</th>
-                    <th data-field="matches" data-sortable="true">Matches</th>
-                    <th data-field="win_percent" data-sortable="true">%</th>
-                </tr>
-                </thead>
-            </table>
-        </div>
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <h4>Top 10 Players</h4>
-            <table class="match-table1" data-toggle="table"
+            <table class="match-table" data-toggle="table"
                    data-url="/api/statistics/player" data-side-pagination="server"
-                   data-sort-name="wins"
+                   data-sort-name="win_percent"
                    data-sort-order="desc">
                 <thead>
                 <tr>
-                    <th data-field="goalkeeper">Goalkeeper</th>
-                    <th data-field="forward">Forward</th>
+                    <th data-field="player">Player</th>
+                    <th data-field="passed_goals" data-sortable="true">Passed Goals</th>
+                    <th data-field="avg_passed_goals" data-sortable="true">Avg PG</th>
+                    <th data-field="goals" data-sortable="true">Goals</th>
+                    <th data-field="avg_goals" data-sortable="true">Avg G</th>
                     <th data-field="wins" data-sortable="true">Wins</th>
                     <th data-field="matches" data-sortable="true">Matches</th>
                     <th data-field="win_percent" data-sortable="true">%</th>
@@ -37,4 +23,77 @@
             </table>
         </div>
     </div>
+    <br/>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>Top 10 Teams</h4>
+            <table class="match-table" data-toggle="table"
+                   data-url="/api/statistics/team" data-side-pagination="server"
+                   data-sort-name="win_percent"
+                   data-sort-order="desc">
+                <thead>
+                <tr>
+                    <th data-field="goalkeeper">Goalkeeper</th>
+                    <th data-field="forward">Forward</th>
+                    <th data-field="wins" data-sortable="true">Wins</th>
+                    <th data-field="matches" data-sortable="true">Matches</th>
+                    <th data-field="win_percent" data-sortable="true">%</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-lg-3">
+            <h4>Best Goalkeeper</h4>
+            <table class="match-table" data-toggle="table"
+                   data-url="/api/statistics/player" data-side-pagination="server"
+                   data-sort-name="avg_passed_goals"
+                   data-sort-order="asc">
+                <thead>
+                <tr>
+                    <th data-field="player">Player</th>
+                    <th data-field="passed_goals">#G</th>
+                    <th data-field="avg_passed_goals">avg</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="col-lg-3">
+            <h4>Best Forward</h4>
+            <table class="match-table" data-toggle="table"
+                   data-url="/api/statistics/player" data-side-pagination="server"
+                   data-sort-name="avg_goals"
+                   data-sort-order="desc">
+                <thead>
+                <tr>
+                    <th data-field="player">Player</th>
+                    <th data-field="goals">#G</th>
+                    <th data-field="avg_goals">avg</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-lg-4">
+            <h4>Best Team Color</h4>
+            <table class="match-table" data-toggle="table"
+                   data-url="/api/statistics/color" data-side-pagination="server"
+                   data-sort-name="win_percent"
+                   data-sort-order="desc">
+                <thead>
+                <tr>
+                    <th data-field="color">Color</th>
+                    <th data-field="wins">Wins</th>
+                    <th data-field="matches">Matches</th>
+                    <th data-field="win_percent" data-sortable="true">%</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
 {% endblock body %}

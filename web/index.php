@@ -53,6 +53,7 @@ $app->get('/statistics', 'controller.frontend:statisticsAction');
 $app->post('/api/match', 'controller.api:saveMatchAction');
 $app->get('/api/statistics/team', 'controller.api:teamStatisticsAction');
 $app->get('/api/statistics/player', 'controller.api:playerStatisticsAction');
+$app->get('/api/statistics/color', 'controller.api:colorStatisticsAction');
 
 //$app->get('/', function() use ($app, $db) {
 //    $players = $db->fetchAll('SELECT * FROM players');

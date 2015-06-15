@@ -38,6 +38,26 @@ SQL;
         return $this->db->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
     }
 
+
+    public function getColorStatistics($sort, $order)
+    {
+        $sql = <<<SQL
+            SELECT *,
+            IF(t.id = m.red_team_id, 'Red', 'Blue') as color,
+            ROUND((SUM((t.id = m.red_team_id AND m.red_score > m.blue_score) OR (t.id = m.blue_team_id AND m.blue_score > m.red_score)) / COUNT(m.id)) * 100 ) as win_percent,
+            SUM((t.id = m.red_team_id AND m.red_score > m.blue_score) OR (t.id = m.blue_team_id AND m.blue_score > m.red_score)) as wins,
+            COUNT(m.id) as matches
+            FROM teams t
+            JOIN matches m ON t.id = m.red_team_id OR t.id = m.blue_team_id
+            GROUP BY color
+            ORDER BY {$sort} {$order}
+SQL;
+
+        return $this->db->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
+    }
+
+
+
     private function create($goalkeeperId, $forwardId)
     {
         $this->db->executeUpdate("INSERT INTO teams (`goalkeeper_id`, `forward_id`) VALUES (:goalkeeper, :forward)", [

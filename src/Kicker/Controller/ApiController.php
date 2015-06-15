@@ -33,4 +33,12 @@ class ApiController extends Controller
 
         return json_encode(['rows' => $this->app['repository.player']->getStatistics($sort, $order)]);
     }
+
+    public function colorStatisticsAction(Request $request)
+    {
+        $sort = $request->get('sort');
+        $order = $request->get('order');
+
+        return json_encode(['rows' => $this->app['repository.team']->getColorStatistics($sort, $order)]);
+    }
 }
