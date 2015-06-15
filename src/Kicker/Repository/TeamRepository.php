@@ -4,6 +4,8 @@ namespace Kicker\Repository;
 
 class TeamRepository extends Repository
 {
+    static $table = 'teams';
+
     public function getOrCreateTeamId($goalkeeperId, $forwardId)
     {
         $team = $this->db->fetchAll('SELECT * FROM teams WHERE goalkeeper_id = :goalkeeper AND forward_id = :forward', [

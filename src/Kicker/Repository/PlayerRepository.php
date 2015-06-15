@@ -2,12 +2,11 @@
 
 namespace Kicker\Repository;
 
+use Kicker\Rating\Elo;
+
 class PlayerRepository extends Repository
 {
-    public function findAll()
-    {
-        return $this->db->fetchAll('SELECT * FROM players');
-    }
+    static $table = 'players';
 
     public function getStatistics($sort, $order)
     {
@@ -31,5 +30,96 @@ class PlayerRepository extends Repository
 SQL;
 
         return $this->db->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
+    }
+
+    public function resetRating()
+    {
+        $this->db->executeUpdate("UPDATE players set rating = 0");
+    }
+
+    public function calculateRatings($matches)
+    {
+        foreach ($matches as $match) {
+            $this->updateRating($match);
+        }
+    }
+
+    public function updateRating($match)
+    {
+        $playerRatings = $this->getPlayersRating($match['red_goalkeeper_id'], $match['red_forward_id'], $match['blue_goalkeeper_id'], $match['blue_forward_id']);
+
+        $newRating = $this->calculateRating(
+            $playerRatings[$match['red_goalkeeper_id']],
+            $match['red_score'] > $match['blue_score'] ? 1 : 0,
+            $playerRatings['red_team_score'],
+            $playerRatings['blue_team_score']
+        );
+        $this->saveRating($match['red_goalkeeper_id'], $match['id'], $newRating);
+
+        $newRating = $this->calculateRating(
+            $playerRatings[$match['red_forward_id']],
+            $match['red_score'] > $match['blue_score'] ? 1 : 0,
+            $playerRatings['red_team_score'],
+            $playerRatings['blue_team_score']
+        );
+        $this->saveRating($match['red_forward_id'], $match['id'], $newRating);
+
+        $newRating = $this->calculateRating(
+            $playerRatings[$match['blue_goalkeeper_id']],
+            $match['blue_score'] > $match['red_score'] ? 1 : 0,
+            $playerRatings['blue_team_score'],
+            $playerRatings['red_team_score']
+        );
+        $this->saveRating($match['blue_goalkeeper_id'], $match['id'], $newRating);
+
+        $newRating = $this->calculateRating(
+            $playerRatings[$match['blue_forward_id']],
+            $match['blue_score'] > $match['red_score'] ? 1 : 0,
+            $playerRatings['blue_team_score'],
+            $playerRatings['red_team_score']
+        );
+        $this->saveRating($match['blue_forward_id'], $match['id'], $newRating);
+    }
+
+    private function calculateRating($oldRating, $score, $commandRating, $opponentRating)
+    {
+        $rating = new Elo();
+        return $rating->calculate($oldRating, $score, $commandRating, $opponentRating);
+    }
+
+    private function saveRating($playerId, $matchId, $rating) {
+        $this->db->executeUpdate(<<<SQL
+          UPDATE players
+            SET rating = :rating
+            WHERE id = :id
+SQL
+        , ['rating' => $rating, 'id' => $playerId]);
+
+        $this->db->executeUpdate(<<<SQL
+          INSERT INTO rating_log VALUES(:player, :match, :rating)
+SQL
+        , ['player' => $playerId, 'match' => $matchId, 'rating' => $rating]);
+    }
+
+    private function getPlayersRating($redGoalkeeperId, $redForwardId, $blueGoalkeeperId, $blueForwardId)
+    {
+        $rating = ['red_team_score' => 0, 'blue_team_score' => 0];
+
+        $scores =  $this->db->fetchAll(<<<SQL
+          SELECT id, rating
+          FROM players
+          WHERE id IN ({$redGoalkeeperId}, {$redForwardId}, {$blueGoalkeeperId}, {$blueForwardId})
+SQL
+        );
+
+        foreach ($scores as $score) {
+            $rating[$score['id']] = $score['rating'];
+            if ($score['id'] == $redGoalkeeperId || $score['id'] == $redForwardId) {
+                $rating['red_team_score'] += $score['rating'];
+            } else {
+                $rating['blue_team_score'] += $score['rating'];
+            }
+
+        }
     }
 }

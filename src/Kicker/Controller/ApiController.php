@@ -46,4 +46,14 @@ class ApiController extends Controller
     {
         return json_encode(['rows' => $this->app['repository.match']->getHistory()]);
     }
+
+    public function calculateRatingAction()
+    {
+        $this->app['repository.player']->resetRating();
+        $ratings = $this->app['repository.player']->calculateRatings($this->app['repository.match']->getHistory('asc'));
+
+        var_dump($ratings);die;
+
+        return 'DONE';
+    }
 }

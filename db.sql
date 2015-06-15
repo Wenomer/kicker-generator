@@ -23,9 +23,9 @@ CREATE TABLE `matches` (
   `id` int(3) unsigned NOT NULL AUTO_INCREMENT,
   `red_team_id` int(3) unsigned NOT NULL,
   `blue_team_id` int(3) unsigned NOT NULL,
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `red_score` tinyint(2) NOT NULL,
   `blue_score` tinyint(2) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `matches_red_team` (`red_team_id`),
   KEY `matches_blue_team` (`blue_team_id`),
@@ -44,21 +44,22 @@ DROP TABLE IF EXISTS `players`;
 CREATE TABLE `players` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
+  `rating` float(6,2) DEFAULT 0.00,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of players
 -- ----------------------------
-INSERT INTO `players` VALUES ('1', 'Alex');
-INSERT INTO `players` VALUES ('2', 'Mike');
-INSERT INTO `players` VALUES ('3', 'Yury');
-INSERT INTO `players` VALUES ('4', 'Alexander');
-INSERT INTO `players` VALUES ('5', 'Sergey');
-INSERT INTO `players` VALUES ('6', 'Artem');
-INSERT INTO `players` VALUES ('7', 'Nik');
-INSERT INTO `players` VALUES ('8', 'Igor');
-INSERT INTO `players` VALUES ('9', 'Ivan');
+INSERT INTO `players` VALUES ('1', 'Alex', '0');
+INSERT INTO `players` VALUES ('2', 'Mike', '0');
+INSERT INTO `players` VALUES ('3', 'Yury', '0');
+INSERT INTO `players` VALUES ('4', 'Alexander', '0');
+INSERT INTO `players` VALUES ('5', 'Sergey', '0');
+INSERT INTO `players` VALUES ('6', 'Artem', '0');
+INSERT INTO `players` VALUES ('7', 'Nik', '0');
+INSERT INTO `players` VALUES ('8', 'Igor', '0');
+INSERT INTO `players` VALUES ('9', 'Ivan', '0');
 
 -- ----------------------------
 -- Table structure for teams
@@ -75,6 +76,16 @@ CREATE TABLE `teams` (
   CONSTRAINT `teams_forward` FOREIGN KEY (`forward_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `teams_goalkeeper` FOREIGN KEY (`goalkeeper_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `rating_log`;
+CREATE TABLE `rating` (
+  `player_id` tinyint(3) unsigned NOT NULL,
+  `match_id` int(3) unsigned NOT NULL,
+  `rating` float(6,2) DEFAULT NULL,
+  PRIMARY KEY (`player_id`,`match_id`),
+  CONSTRAINT `rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `rating_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 -- ----------------------------
 -- Records of teams

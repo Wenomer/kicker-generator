@@ -8,7 +8,7 @@ class FrontendController extends Controller
     {
         return $this->app['twig']->render('tournament.html.twig', [
             'target' => 'tournament',
-            'players' => $this->app['repository.player']->findAll()
+            'players' => $this->app['repository.player']->fetchAll()
         ]);
     }
 
@@ -16,7 +16,7 @@ class FrontendController extends Controller
     {
         return $this->app['twig']->render('manualMatch.html.twig', [
             'target' => 'manual-match',
-            'players' => $this->app['repository.player']->findAll()
+            'players' => $this->app['repository.player']->fetchAll()
         ]);
     }
 
