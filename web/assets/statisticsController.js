@@ -5,7 +5,6 @@ var StatisticsController = function () {
 StatisticsController.prototype = {
     renderChart: function () {
         $.getJSON('/api/statistics/rating-log', function (series) {
-            console.log(series);
             $('.rating-flow').highcharts({
                 title: {
                     text: ''
