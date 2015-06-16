@@ -15,6 +15,8 @@ class MatchRepository extends Repository
             'redScore' => $redScore,
             'blueScore' => $blueScore
         ]);
+
+        return $this->db->lastInsertId();
     }
 
     public function getHistory($order = 'DESC')

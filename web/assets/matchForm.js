@@ -78,14 +78,13 @@ MatchForm.prototype = {
     },
 
     reverseForm: function(form) {
-        var tempGoalkeeper = form.find('select[name="match[red_goalkeeper]"]').val();
+        var tempGoalkeeper = form.find('select[name="match[red_goalkeeper_id]"]').val();
+        form.find('select[name="match[red_goalkeeper_id]"]').val(form.find('select[name="match[red_forward_id]"]').val());
+        form.find('select[name="match[red_forward_id]"]').val(tempGoalkeeper);
 
-        form.find('select[name="match[red_goalkeeper]"]').val(form.find('select[name="match[red_forward]"]').val());
-        form.find('select[name="match[red_forward]"]').val(tempGoalkeeper);
-
-        tempGoalkeeper = form.find('select[name="match[blue_goalkeeper]"]').val();
-        form.find('select[name="match[blue_goalkeeper]"]').val(form.find('select[name="match[blue_forward]"]').val());
-        form.find('select[name="match[blue_forward]"]').val(tempGoalkeeper);
+        tempGoalkeeper = form.find('select[name="match[blue_goalkeeper_id]"]').val();
+        form.find('select[name="match[blue_goalkeeper_id]"]').val(form.find('select[name="match[blue_forward_id]"]').val());
+        form.find('select[name="match[blue_forward_id]"]').val(tempGoalkeeper);
 
         form.find('input[type="text"]').val('');
         form.css('background-color', '#5cb85c');

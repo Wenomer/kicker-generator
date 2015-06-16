@@ -39,6 +39,8 @@ SQL;
 
     public function calculateRatings($matches)
     {
+        $this->resetRating();
+
         foreach ($matches as $match) {
             $this->updateRating($match);
         }
@@ -121,5 +123,7 @@ SQL
             }
 
         }
+
+        return $rating;
     }
 }

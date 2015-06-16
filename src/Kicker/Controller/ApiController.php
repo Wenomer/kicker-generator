@@ -10,10 +10,12 @@ class ApiController extends Controller
     {
         $match = $request->get('match');
 
-        $redTeamId = $this->app['repository.team']->getOrCreateTeamId($match['red_goalkeeper'], $match['red_forward']);
-        $blueTeamId = $this->app['repository.team']->getOrCreateTeamId($match['blue_goalkeeper'], $match['blue_forward']);
+        $redTeamId = $this->app['repository.team']->getOrCreateTeamId($match['red_goalkeeper_id'], $match['red_forward_id']);
+        $blueTeamId = $this->app['repository.team']->getOrCreateTeamId($match['blue_goalkeeper_id'], $match['blue_forward_id']);
 
-        $this->app['repository.match']->save($redTeamId, $blueTeamId, $match['red_score'], $match['blue_score']);
+        $match['id'] = $this->app['repository.match']->save($redTeamId, $blueTeamId, $match['red_score'], $match['blue_score']);
+
+        $this->app['repository.player']->updateRating($match);
 
         return json_encode(['success' => true]);
     }
@@ -49,11 +51,7 @@ class ApiController extends Controller
 
     public function calculateRatingAction()
     {
-        $this->app['repository.player']->resetRating();
-        $ratings = $this->app['repository.player']->calculateRatings($this->app['repository.match']->getHistory('asc'));
-
-        var_dump($ratings);die;
-
+        $this->app['repository.player']->calculateRatings($this->app['repository.match']->getHistory('asc'));
         return 'DONE';
     }
 }

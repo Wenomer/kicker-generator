@@ -44,6 +44,7 @@
                 <li class="{% if(target == 'manual-match') %} active {%endif%}"><a href="/">Manual Match</a></li>
                 <li class="{% if(target == 'tournament') %} active {%endif%}"><a href="/tournament">Tournament</a></li>
                 <li class="{% if(target == 'statistics') %} active {%endif%}"><a href="/statistics">Statistics</a></li>
+                <li class="{% if(target == 'history') %} active {%endif%}"><a href="/history">History</a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div>
@@ -78,8 +79,8 @@
                     <h3 class="panel-title" id="panel-title">Red Team</h3>
                 </div>
                 <div class="panel-body">
-                    <input type="hidden" name="match[red_goalkeeper]" value="<% if (match) { %><%=match.redTeam.goalkeeper%><% } %>"/>
-                    <select class="form-control goalkeeper" name="match[red_goalkeeper]" <% if (isTournament) { %>disabled<% } %>>
+                    <input type="hidden" name="match[red_goalkeeper_id]" value="<% if (match) { %><%=match.redTeam.goalkeeper%><% } %>"/>
+                    <select class="form-control goalkeeper" name="match[red_goalkeeper_id]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Goalkeeper</option>
                         {% if players is defined %}
                             {% for player in players %}
@@ -87,8 +88,8 @@
                             {% endfor %}
                         {% endif %}
                     </select>
-                    <input type="hidden" name="match[red_forward]" value="<% if (match) { %><%=match.redTeam.forward%><% } %>"/>
-                    <select class="form-control forward" name="match[red_forward]" <% if (isTournament) { %>disabled<% } %>>
+                    <input type="hidden" name="match[red_forward_id]" value="<% if (match) { %><%=match.redTeam.forward%><% } %>"/>
+                    <select class="form-control forward" name="match[red_forward_id]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Forward</option>
                         {% if players is defined %}
                             {% for player in players %}
@@ -105,8 +106,8 @@
                     <h3 class="panel-title" id="panel-title">Blue Team</h3>
                 </div>
                 <div class="panel-body">
-                    <input type="hidden" name="match[blue_goalkeeper]" value="<% if (match) { %><%=match.blueTeam.goalkeeper%><% } %>"/>
-                    <select class="form-control goalkeeper" name="match[blue_goalkeeper]" <% if (isTournament) { %>disabled<% } %>>
+                    <input type="hidden" name="match[blue_goalkeeper_id]" value="<% if (match) { %><%=match.blueTeam.goalkeeper%><% } %>"/>
+                    <select class="form-control goalkeeper" name="match[blue_goalkeeper_id]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Goalkeeper</option>
                         {% if players is defined %}
                             {% for player in players %}
@@ -114,8 +115,8 @@
                             {% endfor %}
                         {% endif %}
                     </select>
-                    <input type="hidden" name="match[blue_forward]" value="<% if (match) { %><%=match.blueTeam.forward%><% } %>"/>
-                    <select class="form-control forward" name="match[blue_forward]" <% if (isTournament) { %>disabled<% } %>>
+                    <input type="hidden" name="match[blue_forward_id]" value="<% if (match) { %><%=match.blueTeam.forward%><% } %>"/>
+                    <select class="form-control forward" name="match[blue_forward_id]" <% if (isTournament) { %>disabled<% } %>>
                         <option value="0">Forward</option>
                        {% if players is defined %}
                             {% for player in players %}
