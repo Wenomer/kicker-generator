@@ -38,6 +38,10 @@ $app['repository.match'] = $app->share(function() use ($db) {
     return new \Kicker\Repository\MatchRepository($db);
 });
 
+$app['repository.rating'] = $app->share(function() use ($db) {
+    return new \Kicker\Repository\RatingRepository($db);
+});
+
 $app['controller.frontend'] = $app->share(function() use ($app) {
     return new \Kicker\Controller\FrontendController($app);
 });
@@ -56,6 +60,7 @@ $app->get('/api/history', 'controller.api:historyAction');
 $app->get('/api/statistics/team', 'controller.api:teamStatisticsAction');
 $app->get('/api/statistics/player', 'controller.api:playerStatisticsAction');
 $app->get('/api/statistics/color', 'controller.api:colorStatisticsAction');
+$app->get('/api/statistics/rating-log', 'controller.api:RatingLogAction');
 //$app->get('/api/calculate-rating', 'controller.api:calculateRatingAction');
 
 //$app->get('/', function() use ($app, $db) {

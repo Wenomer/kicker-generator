@@ -54,4 +54,20 @@ class ApiController extends Controller
         $this->app['repository.player']->calculateRatings($this->app['repository.match']->getHistory('asc'));
         return 'DONE';
     }
+
+    public function RatingLogAction()
+    {
+        $logs = $this->app['repository.rating']->getLog();
+        $chartData = [];
+
+        foreach ($logs as $log) {
+            if (!isset($chartData[$log['player_id']])) {
+                $chartData[$log['player_id']] = ['name' => $log['player_name'], 'data' => [0]];
+            }
+
+            $chartData[$log['player_id']]['data'][] = floatval($log['rating']);
+        }
+
+        return json_encode(array_values($chartData));
+    }
 }

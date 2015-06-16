@@ -77,6 +77,12 @@
     </div>
     <br/>
     <div class="row">
+        <div class="col-lg-8">
+            <h4>Rating Flow</h4>
+            <div class="rating-flow"></div>
+        </div>
+        <br/>
+        <br/>
         <div class="col-lg-4">
             <h4>Best Team Color</h4>
             <table data-toggle="table"
@@ -98,3 +104,11 @@
     <br/>
     <br/>
 {% endblock body %}
+
+{% block jscontroller %}
+    <script type="application/javascript">
+        $(document).ready(function() {
+            var controller = new StatisticsController();
+        });
+    </script>
+{% endblock %}
