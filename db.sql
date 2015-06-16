@@ -78,7 +78,7 @@ CREATE TABLE `teams` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 DROP TABLE IF EXISTS `rating_log`;
-CREATE TABLE `rating` (
+CREATE TABLE `rating_log` (
   `player_id` tinyint(3) unsigned NOT NULL,
   `match_id` int(3) unsigned NOT NULL,
   `rating` float(6,2) DEFAULT NULL,
@@ -86,7 +86,3 @@ CREATE TABLE `rating` (
   CONSTRAINT `rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `rating_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
-
--- ----------------------------
--- Records of teams
--- ----------------------------

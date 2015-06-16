@@ -11,7 +11,7 @@ class PlayerRepository extends Repository
     public function getStatistics($sort, $order)
     {
         $sql = <<<SQL
-            SELECT p.name player,
+            SELECT p.name player, p.rating as rating,
             SUM(IF(p.id = t.goalkeeper_id AND t.id = m.red_team_id, m.blue_score, IF(p.id = t.goalkeeper_id AND t.id = m.blue_team_id, m.red_score, 0))) as passed_goals,
             ROUND(SUM(IF(p.id = t.goalkeeper_id AND t.id = m.red_team_id, m.blue_score, IF(p.id = t.goalkeeper_id AND t.id = m.blue_team_id, m.red_score, 0))) / COUNT(m.id), 2) as avg_passed_goals,
             SUM(IF(p.id = t.forward_id AND t.id = m.red_team_id, m.red_score, IF(p.id = t.forward_id AND t.id = m.blue_team_id, m.blue_score, 0))) as goals,

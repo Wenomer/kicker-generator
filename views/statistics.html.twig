@@ -3,21 +3,22 @@
 {% block body %}
     <div class="row">
         <div class="col-lg-12">
-            <h4>Top 10 Players</h4>
+            <h4>Top 10 Players (Rating calculated accordingly <a href="https://ru.wikipedia.org/wiki/%D0%A0%D0%B5%D0%B9%D1%82%D0%B8%D0%BD%D0%B3_%D0%AD%D0%BB%D0%BE">Elo Rating</a>)</h4>
             <table data-toggle="table"
                    data-url="/api/statistics/player" data-side-pagination="server"
-                   data-sort-name="win_percent"
+                   data-sort-name="rating"
                    data-sort-order="desc">
                 <thead>
                 <tr>
                     <th data-field="player">Player</th>
-                    <th data-field="passed_goals" data-sortable="true">Goals Conceded</th>
-                    <th data-field="avg_passed_goals" data-sortable="true">Avg GC</th>
                     <th data-field="goals" data-sortable="true">Goals Scored</th>
                     <th data-field="avg_goals" data-sortable="true">Avg GS</th>
+                    <th data-field="passed_goals" data-sortable="true">Goals Conceded</th>
+                    <th data-field="avg_passed_goals" data-sortable="true">Avg GC</th>
                     <th data-field="wins" data-sortable="true">Wins</th>
                     <th data-field="matches" data-sortable="true">Matches</th>
                     <th data-field="win_percent" data-sortable="true">%</th>
+                    <th data-field="rating" data-sortable="true">Rating</th>
                 </tr>
                 </thead>
             </table>
