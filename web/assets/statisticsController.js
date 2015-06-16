@@ -8,8 +8,7 @@ StatisticsController.prototype = {
             console.log(series);
             $('.rating-flow').highcharts({
                 title: {
-                    text: 'Players Rating Flow',
-                    x: -20 //center
+                    text: ''
                 },
                 yAxis: {
                     title: {
