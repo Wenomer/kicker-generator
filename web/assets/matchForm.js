@@ -27,37 +27,46 @@ MatchForm.prototype = {
                             if (self.round == 1) {
                                 self.reverseForm(form);
                             } else {
+                                self.round = 0;
                                 self.clearForm(form);
                             }
                         } else {
                             self.blockForm(form);
                         }
                     }
+
+                    self.excludePlayers(form);
                 }
             });
+
             return false;
         });
 
         this.target.on('change', 'select', function(e) {
-            var selects = $(e.currentTarget).closest('form').find('select');
-            var values = _.reduce(selects, function (mem, select){
-                $(select).find('option').show();
-                var val = $(select).val();
-                if (val != 0) {
-                    mem.push(val);
+            self.excludePlayers($(e.currentTarget).closest('form'));
+        });
+    },
+
+    excludePlayers: function (form) {
+        var selects = form.find('select');
+
+        var values = _.reduce(selects, function (mem, select){
+            $(select).find('option').show();
+            var val = $(select).val();
+            if (val != 0) {
+                mem.push(val);
+            }
+
+            return mem;
+        }, []);
+
+        _.each(selects, function(select) {
+            var $select = $(select);
+
+            _.each(values, function(value) {
+                if ($select.val() != value) {
+                    $select.find('option[value="' + value + '"]').hide();
                 }
-
-                return mem;
-            }, []);
-
-            _.each(selects, function(select) {
-                var $select = $(select);
-
-                _.each(values, function(value) {
-                    if ($select.val() != value) {
-                        $select.find('option[value="' + value + '"]').hide();
-                    }
-                });
             });
         });
     },
