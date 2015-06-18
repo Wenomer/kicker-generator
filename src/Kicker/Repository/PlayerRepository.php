@@ -107,8 +107,7 @@ SQL;
 
     private function calculateRating($oldRating, $score, $commandRating, $opponentRating)
     {
-        $rating = new Elo();
-        return $rating->calculate($oldRating, $score, $commandRating, $opponentRating);
+        return Elo::calculate($oldRating, $score, $commandRating, $opponentRating);
     }
 
     private function savePlayerRating($playerId, $matchId, $rating) {

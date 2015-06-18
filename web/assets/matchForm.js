@@ -36,6 +36,7 @@ MatchForm.prototype = {
                     }
 
                     self.excludePlayers(form);
+                    self.getProbability(form);
                 }
             });
 
@@ -44,9 +45,37 @@ MatchForm.prototype = {
 
         this.target.on('change', 'select', function(e) {
             var select = $(e.currentTarget);
+            var form = select.closest('form');
             select.closest('.media').find('img').attr('src', 'https://www.gravatar.com/avatar/' + select.find('option:selected').data('hash') + '?s=50');
-            self.excludePlayers(select.closest('form'));
+            self.excludePlayers(form);
+            self.getProbability(form);
         });
+    },
+
+    getProbability: function (form) {
+        var selects = form.find('select');
+        var probability = form.find('.probability');
+
+        var values = _.reduce(selects, function (mem, select){
+            var select = $(select);
+            if (select.val() != 0) {
+                mem[select.attr('name').replace("match[", "").replace("]", "")] = select.val();
+            }
+
+            return mem;
+        }, {});
+
+        if (_.size(values) === 4) {
+            $.getJSON('/api/probability', {match: values}, function (response) {
+                if (response.redWin > response.blueWin) {
+                    probability.html('   (' + response.redWin + '% Red Win)');
+                } else {
+                    probability.html('   (' + response.blueWin + '% Blue Win)');
+                }
+            });
+        } else {
+            probability.html('');
+        }
     },
 
     excludePlayers: function (form) {
@@ -71,6 +100,10 @@ MatchForm.prototype = {
                 }
             });
         });
+
+        if (values.length) {
+
+        }
     },
 
     blockForm: function(form) {

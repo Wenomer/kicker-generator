@@ -11,14 +11,17 @@ class Elo
     const COEFF_MEDIUM = 20;
     const COEFF_HIGH = 10;
 
-    public function calculate($oldRating, $score, $commandRating, $opponentRating)
+    public static function calculate($oldRating, $score, $commandRating, $opponentRating)
     {
-        $expectedValue = 1 / (1 + pow(10, ($opponentRating - $commandRating) / 400));
-
-        return round($oldRating + $this->coefficient($oldRating) * ($score - $expectedValue), 2);
+        return round($oldRating + self::coefficient($oldRating) * ($score - self::getProbability($commandRating, $opponentRating)), 2);
     }
 
-    private function coefficient($rating)
+    public static function getProbability($commandRating, $opponentRating)
+    {
+        return 1 / (1 + pow(10, ($opponentRating - $commandRating) / 400));
+    }
+
+    private static function coefficient($rating)
     {
         switch(true) {
             case ($rating < self::LEAGUE_LOW): return self::COEFF_LOW;

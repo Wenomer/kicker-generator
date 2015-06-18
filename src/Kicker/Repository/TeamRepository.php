@@ -2,6 +2,8 @@
 
 namespace Kicker\Repository;
 
+use Kicker\Rating\Elo;
+
 class TeamRepository extends Repository
 {
     static $table = 'teams';
@@ -58,8 +60,6 @@ SQL;
         return $this->db->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
     }
 
-
-
     private function create($goalkeeperId, $forwardId)
     {
         $this->db->executeUpdate("INSERT INTO teams (`goalkeeper_id`, `forward_id`) VALUES (:goalkeeper, :forward)", [
@@ -69,4 +69,33 @@ SQL;
 
         return $this->db->lastInsertId();
     }
+
+    public function getWinProbability($redTeamId, $blueTeamId)
+    {
+        $ratings = $this->getTeamsRating($redTeamId, $blueTeamId);
+
+        return [
+            'redWin' => round(Elo::getProbability($ratings[$redTeamId], $ratings[$blueTeamId]) * 100),
+            'blueWin' => round(Elo::getProbability($ratings[$blueTeamId], $ratings[$redTeamId]) * 100)
+        ];
+    }
+//DRY!!!! same method as in playerRepository
+    private function getTeamsRating($redTeamId, $blueTeamId)
+    {
+        $rating = [];
+
+        $scores =  $this->db->fetchAll(<<<SQL
+          SELECT id, rating
+          FROM teams
+          WHERE id IN ({$redTeamId}, {$blueTeamId})
+SQL
+        );
+
+        foreach ($scores as $score) {
+            $rating[$score['id']] = $score['rating'];
+        }
+
+        return $rating;
+    }
+
 }

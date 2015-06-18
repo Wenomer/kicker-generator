@@ -46,7 +46,7 @@ class ApiController extends Controller
         return json_encode(['rows' => $this->app['repository.team']->getColorStatistics($sort, $order)]);
     }
 
-    public function historyAction(Request $request)
+    public function historyAction()
     {
         return json_encode(['rows' => $this->app['repository.match']->getHistory()]);
     }
@@ -57,7 +57,7 @@ class ApiController extends Controller
         return 'DONE';
     }
 
-    public function RatingLogAction()
+    public function ratingLogAction()
     {
         $logs = $this->app['repository.player_rating']->getLog();
         $chartData = [];
@@ -71,5 +71,15 @@ class ApiController extends Controller
         }
 
         return json_encode(array_values($chartData));
+    }
+
+    public function probabilityAction(Request $request)
+    {
+        $match = $request->get('match');
+
+        $redTeamId = $this->app['repository.team']->getOrCreateTeamId($match['red_goalkeeper_id'], $match['red_forward_id']);
+        $blueTeamId = $this->app['repository.team']->getOrCreateTeamId($match['blue_goalkeeper_id'], $match['blue_forward_id']);
+
+        return json_encode($this->app['repository.team']->getWinProbability($redTeamId, $blueTeamId));
     }
 }
