@@ -63,6 +63,7 @@
 <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.8.1/bootstrap-table-all.min.js"></script>
+<script type="text/javascript" src="assets/plugin/jquery.ddslick.min.js"></script>
 <script type="text/javascript" src="assets/jquery.form.min.js"></script>
 <script type="text/javascript" src="assets/playersExcluder.js"></script>
 <script type="text/javascript" src="assets/matchForm.js"></script>
@@ -76,6 +77,13 @@
 
 <script id="match-form-template" type="application/template">
     <form action="/api/match" method="POST" class="game-form match-form clearfix">
+        <select id="demo-htmlselect">
+            <option value="0" data-imagesrc="http://dl.dropbox.com/u/40036711/Images/facebook-icon-32.png" data-description="">Facebook</option>
+            <option value="1" data-imagesrc="http://dl.dropbox.com/u/40036711/Images/twitter-icon-32.png" data-description="Description with Twitter">Twitter</option>
+            <option value="2" data-imagesrc="http://dl.dropbox.com/u/40036711/Images/linkedin-icon-32.png" data-description="Description with LinkedIn">LinkedIn</option>
+            <option value="3" data-imagesrc="http://dl.dropbox.com/u/40036711/Images/foursquare-icon-32.png" data-description="Description with Foursquare">Foursquare</option>
+        </select>
+
         <div class="col-lg-4">
             <div class="panel panel-danger">
                 <div class="panel-heading">
@@ -87,7 +95,7 @@
                         <option value="0">Goalkeeper</option>
                         {% if players is defined %}
                             {% for player in players %}
-                                <option value="{{ player.id }}" <% if (match && match.redTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
+                                <option data-imagesrc="http://dl.dropbox.com/u/40036711/Images/facebook-icon-32.png" value="{{ player.id }}" <% if (match && match.redTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
                             {% endfor %}
                         {% endif %}
                     </select>

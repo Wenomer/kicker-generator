@@ -10,6 +10,8 @@ MatchForm.prototype = {
     render: function(match) {
         match = match || {redTeam: {goalkeeper: 0, forward: 0}, blueTeam: {goalkeeper: 0, forward: 0}};
         this.target.append(this.template({match: match, isTournament: this.isTournament}));
+
+        $('select').ddslick();
     },
 
     bind: function() {
