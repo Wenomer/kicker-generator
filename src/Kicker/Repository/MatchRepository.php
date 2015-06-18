@@ -34,7 +34,9 @@ class MatchRepository extends Repository
                 blue_forward.name as blue_forward_name,
                 red_team.id as red_team_id,
                 blue_team.id as blue_team_id,
-                red_score, blue_score, date
+                red_score, blue_score, date,
+                DATE_FORMAT(date, '%y-%m-%d') as day,
+                DATE_FORMAT(date, '%H:%i') as time
             FROM matches
             JOIN teams as red_team ON red_team.id = red_team_id
             JOIN teams as blue_team ON blue_team.id = blue_team_id

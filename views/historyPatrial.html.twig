@@ -1,0 +1,23 @@
+<h4>{{ day|date("l d-m-Y") }}</h4>
+<table class="table table-bordered">
+    <tr>
+        <th>Time</th>
+        <th>RG</th>
+        <th>RF</th>
+        <th>BG</th>
+        <th>BF</th>
+        <th>R Score</th>
+        <th>B Score</th>
+    </tr>
+    {% for match in dayMatches %}
+        <tr>
+            <td>{{ match.time }}</td>
+            <td>{{ match.red_goalkeeper_name }}</td>
+            <td>{{ match.red_forward_name }}</td>
+            <td>{{ match.blue_goalkeeper_name }}</td>
+            <td>{{ match.blue_forward_name }}</td>
+            <td>{{ match.red_score }}</td>
+            <td>{{ match.blue_score }}</td>
+        </tr>
+    {%  endfor %}
+</table>

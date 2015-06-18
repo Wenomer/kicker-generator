@@ -29,8 +29,20 @@ class FrontendController extends Controller
 
     public function historyAction()
     {
+        $history = $this->app['repository.match']->getHistory();
+        $grouppedHistory = [];
+
+        foreach ($history as $match) {
+            if (!isset($grouppedHistory[$match['day']])) {
+                $grouppedHistory[$match['day']] = [];
+            }
+
+            $grouppedHistory[$match['day']][] = $match;
+        }
+
         return $this->app['twig']->render('history.html.twig', [
             'target' => 'history',
+            'history' => $grouppedHistory,
         ]);
     }
 }
