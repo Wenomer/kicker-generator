@@ -14,6 +14,8 @@ class ApiController extends Controller
         $blueTeamId = $this->app['repository.team']->getOrCreateTeamId($match['blue_goalkeeper_id'], $match['blue_forward_id']);
 
         $match['id'] = $this->app['repository.match']->save($redTeamId, $blueTeamId, $match['red_score'], $match['blue_score']);
+        $match['red_team_id'] = $redTeamId;
+        $match['blue_team_id'] = $blueTeamId;
 
         $this->app['repository.player']->updateRating($match);
 
@@ -57,7 +59,7 @@ class ApiController extends Controller
 
     public function RatingLogAction()
     {
-        $logs = $this->app['repository.rating']->getLog();
+        $logs = $this->app['repository.player_rating']->getLog();
         $chartData = [];
 
         foreach ($logs as $log) {

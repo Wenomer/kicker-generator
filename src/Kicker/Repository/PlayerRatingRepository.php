@@ -3,15 +3,15 @@
 namespace Kicker\Repository;
 
 
-class RatingRepository extends Repository
+class PlayerRatingRepository extends Repository
 {
-    static $table = 'rating_log';
+    static $table = 'player_rating_log';
 
     public function getLog()
     {
         $sql = <<<SQL
-            SELECT players.name as player_name, players.id as player_id, rating_log.rating as rating
-            FROM rating_log
+            SELECT players.name as player_name, players.id as player_id, player_rating_log.rating as rating
+            FROM player_rating_log
             JOIN players ON players.id = player_id
             JOIN matches ON matches.id = match_id
             ORDER BY matches.date ASC

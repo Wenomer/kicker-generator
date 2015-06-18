@@ -32,6 +32,8 @@ class MatchRepository extends Repository
                 blue_goalkeeper.name as blue_goalkeeper_name,
                 blue_forward.id as blue_forward_id,
                 blue_forward.name as blue_forward_name,
+                red_team.id as red_team_id,
+                blue_team.id as blue_team_id,
                 red_score, blue_score, date
             FROM matches
             JOIN teams as red_team ON red_team.id = red_team_id

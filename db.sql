@@ -45,21 +45,22 @@ CREATE TABLE `players` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `rating` float(6,2) DEFAULT 0.00,
+  `hash` varchar(32) NOT NULL DEFAULT '00000000000000000000000000000000',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of players
 -- ----------------------------
-INSERT INTO `players` VALUES ('1', 'Alex', '0');
-INSERT INTO `players` VALUES ('2', 'Mike', '0');
-INSERT INTO `players` VALUES ('3', 'Yury', '0');
-INSERT INTO `players` VALUES ('4', 'Alexander', '0');
-INSERT INTO `players` VALUES ('5', 'Sergey', '0');
-INSERT INTO `players` VALUES ('6', 'Artem', '0');
-INSERT INTO `players` VALUES ('7', 'Nik', '0');
-INSERT INTO `players` VALUES ('8', 'Igor', '0');
-INSERT INTO `players` VALUES ('9', 'Ivan', '0');
+INSERT INTO `players` VALUES ('1', 'Alex', '0', '9453df4d1bff2c70d8c5838ff466269f');
+INSERT INTO `players` VALUES ('2', 'Mike', '0', '6d6bb0bd8c443d85b70de02755d2fc4b');
+INSERT INTO `players` VALUES ('3', 'Yury', '0', '6929e46457e33b0d41bdeca417ecfc47');
+INSERT INTO `players` VALUES ('4', 'Alexander', '0', 'bbc632d72388bafe3f91797157b3ab5f');
+INSERT INTO `players` VALUES ('5', 'Sergey', '0', '1fe97c024e61d117230a86cd3062f1c3');
+INSERT INTO `players` VALUES ('6', 'Artem', '0', 'e48838b34e38a40e3048ae54e8c1b642');
+INSERT INTO `players` VALUES ('7', 'Nik', '0', '90d20b23667af20aa315788af2f58a97');
+INSERT INTO `players` VALUES ('8', 'Igor', '0', 'a30959289655a2cfc6757ea1a985c567');
+INSERT INTO `players` VALUES ('9', 'Ivan', '0', '82f38c238f9bd6ccd58ae385cfce13f1');
 
 -- ----------------------------
 -- Table structure for teams
@@ -69,6 +70,7 @@ CREATE TABLE `teams` (
   `id` int(3) unsigned NOT NULL AUTO_INCREMENT,
   `goalkeeper_id` tinyint(3) unsigned NOT NULL,
   `forward_id` tinyint(3) unsigned NOT NULL,
+  `rating` float(6,2) DEFAULT 0.00,
   PRIMARY KEY (`id`),
   UNIQUE KEY `team_forward_goalkeeper` (`goalkeeper_id`,`forward_id`) USING BTREE,
   KEY `teams_goalkeeper` (`goalkeeper_id`),
@@ -77,12 +79,22 @@ CREATE TABLE `teams` (
   CONSTRAINT `teams_goalkeeper` FOREIGN KEY (`goalkeeper_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE IF EXISTS `rating_log`;
-CREATE TABLE `rating_log` (
+DROP TABLE IF EXISTS `player_rating_log`;
+CREATE TABLE `player_rating_log` (
   `player_id` tinyint(3) unsigned NOT NULL,
   `match_id` int(3) unsigned NOT NULL,
   `rating` float(6,2) DEFAULT NULL,
   PRIMARY KEY (`player_id`,`match_id`),
-  CONSTRAINT `rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `rating_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `player_rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `player_rating_player` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+DROP TABLE IF EXISTS `team_rating_log`;
+CREATE TABLE `team_rating_log` (
+  `team_id` int(3) unsigned NOT NULL,
+  `match_id` int(3) unsigned NOT NULL,
+  `rating` float(6,2) DEFAULT NULL,
+  PRIMARY KEY (`team_id`,`match_id`),
+  CONSTRAINT `team_rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `team_rating_team` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8

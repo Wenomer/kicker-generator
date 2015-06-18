@@ -23,7 +23,7 @@ class TeamRepository extends Repository
     public function getStatistics($sort, $order)
     {
         $sql = <<<SQL
-            SELECT p1.name as forward, p2.name as goalkeeper, count(m.id) as matches, p1.rating + p2.rating as team_score,
+            SELECT p1.name as forward, p2.name as goalkeeper, count(m.id) as matches, t.rating as  team_rating,
             SUM((t.id = m.red_team_id AND m.red_score > m.blue_score) OR (t.id = m.blue_team_id AND m.blue_score > m.red_score)) as wins,
             ROUND((SUM((t.id = m.red_team_id AND m.red_score > m.blue_score) OR (t.id = m.blue_team_id AND m.blue_score > m.red_score))/ count(m.id)) * 100) as win_percent
 
