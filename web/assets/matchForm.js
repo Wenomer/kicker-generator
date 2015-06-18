@@ -15,30 +15,41 @@ MatchForm.prototype = {
     bind: function() {
         var self = this;
         this.target.on('submit', 'form', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+
             var form = $(e.currentTarget);
 
             self.round++;
 
-            $(this).ajaxSubmit({
-                dataType: 'json',
-                success: function(response) {
-                    if (response && response.success) {
-                        if (!self.isTournament) {
-                            if (self.round == 1) {
-                                self.reverseForm(form);
-                            } else {
-                                self.round = 0;
-                                self.clearForm(form);
-                            }
-                        } else {
-                            self.blockForm(form);
-                        }
-                    }
+            if(self.validate(form)) {
+                form.css('background-color', 'white');
+                form.find('input[type=submit]').attr('disabled', 'disabled');
 
-                    self.excludePlayers(form);
-                    self.getProbability(form);
-                }
-            });
+                $(this).ajaxSubmit({
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response && response.success) {
+                            if (!self.isTournament) {
+                                if (self.round == 1) {
+                                    self.reverseForm(form);
+                                } else {
+                                    self.round = 0;
+                                    self.clearForm(form);
+                                }
+                            } else {
+                                self.blockForm(form);
+                            }
+                        }
+                        form.find('input[type=submit]').removeAttr('disabled');
+                        self.excludePlayers(form);
+                        self.getProbability(form);
+                        self.updateAvatars(form);
+                    }
+                });
+            } else {
+                form.css('background-color', '#d9534f');
+            }
 
             return false;
         });
@@ -49,6 +60,38 @@ MatchForm.prototype = {
             select.closest('.media').find('img').attr('src', 'https://www.gravatar.com/avatar/' + select.find('option:selected').data('hash') + '?s=50');
             self.excludePlayers(form);
             self.getProbability(form);
+            self.updateAvatars(form);
+        });
+    },
+
+    validate: function (form) {
+        var result = true;
+        var selects = form.find('select');
+        var inputsRed = form.find('input[name="match[red_score]"]');
+        var inputsBlue = form.find('input[name="match[blue_score]"]');
+        var selected = [];
+
+        _.each(selects, function(select) {
+            select = $(select);
+            if (select.val() == 0 || $.inArray(select.val(), selected) != -1) {
+                result = false;
+            }
+            selected.push(select.val());
+        });
+
+        if (inputsRed.val() == "" || inputsBlue.val() == "" || (inputsRed.val() != 5 && inputsBlue.val() != 5)) {
+            result = false;
+        }
+
+        return result;
+    },
+
+    updateAvatars: function (form) {
+        var selects = form.find('select');
+
+        _.each(selects, function(select) {
+            select = $(select);
+            select.closest('.media').find('img').attr('src', 'https://www.gravatar.com/avatar/' + select.find('option:selected').data('hash') + '?s=50');
         });
     },
 
@@ -57,7 +100,7 @@ MatchForm.prototype = {
         var probability = form.find('.probability');
 
         var values = _.reduce(selects, function (mem, select){
-            var select = $(select);
+            select = $(select);
             if (select.val() != 0) {
                 mem[select.attr('name').replace("match[", "").replace("]", "")] = select.val();
             }
@@ -92,11 +135,11 @@ MatchForm.prototype = {
         }, []);
 
         _.each(selects, function(select) {
-            var $select = $(select);
+            select = $(select);
 
             _.each(values, function(value) {
-                if ($select.val() != value) {
-                    $select.find('option[value="' + value + '"]').hide();
+                if (select.val() != value) {
+                    select.find('option[value="' + value + '"]').hide();
                 }
             });
         });
