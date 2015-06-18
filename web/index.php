@@ -63,16 +63,4 @@ $app->get('/api/statistics/color', 'controller.api:colorStatisticsAction');
 $app->get('/api/statistics/rating-log', 'controller.api:RatingLogAction');
 //$app->get('/api/calculate-rating', 'controller.api:calculateRatingAction');
 
-//$app->get('/', function() use ($app, $db) {
-//    $players = $db->fetchAll('SELECT * FROM players');
-//    return $app['twig']->render('generator.html.twig', ['players' => $players]);
-//});
-
-//$app->get('/{stockcode}', function (Silex\Application $app, $stockcode) use ($toys) {
-//    if (!isset($toys[$stockcode])) {
-//        $app->abort(404, "Stockcode {$stockcode} does not exist.");
-//    }
-//    return json_encode($toys[$stockcode]);
-//});
-
 $app->run();

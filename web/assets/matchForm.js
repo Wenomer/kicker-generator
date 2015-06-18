@@ -10,10 +10,6 @@ MatchForm.prototype = {
     render: function(match) {
         match = match || {redTeam: {goalkeeper: 0, forward: 0}, blueTeam: {goalkeeper: 0, forward: 0}};
         this.target.append(this.template({match: match, isTournament: this.isTournament}));
-
-        //$('select').ddslick({
-        //    width:185
-        //});
     },
 
     bind: function() {
@@ -47,7 +43,9 @@ MatchForm.prototype = {
         });
 
         this.target.on('change', 'select', function(e) {
-            self.excludePlayers($(e.currentTarget).closest('form'));
+            var select = $(e.currentTarget);
+            select.closest('.media').find('img').attr('src', 'https://www.gravatar.com/avatar/' + select.find('option:selected').data('hash') + '?s=50');
+            self.excludePlayers(select.closest('form'));
         });
     },
 
