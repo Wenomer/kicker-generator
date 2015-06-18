@@ -11,7 +11,9 @@ MatchForm.prototype = {
         match = match || {redTeam: {goalkeeper: 0, forward: 0}, blueTeam: {goalkeeper: 0, forward: 0}};
         this.target.append(this.template({match: match, isTournament: this.isTournament}));
 
-        $('select').ddslick();
+        //$('select').ddslick({
+        //    width:185
+        //});
     },
 
     bind: function() {
