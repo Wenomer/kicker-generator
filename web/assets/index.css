@@ -12,6 +12,11 @@
     margin-bottom: 15px;
 }
 
+.highlight-player select {
+    display: inline-block;
+    width: 140px;
+}
+
 .game-form select {
     height: 50px;
 }

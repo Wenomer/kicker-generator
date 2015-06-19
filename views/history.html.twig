@@ -3,6 +3,16 @@
 {% block body %}
 <div class="row">
     <div class="col-lg-12">
+        <div class="highlight-player pull-right">
+            <span>Highlight player games: </span>
+
+            <select class="form-control">
+                <option value="0">None</option>
+                {% for player in players %}
+                    <option value="{{ player.id }}">{{ player.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
         {% for day, dayMatches in history %}
             {% include 'historyPatrial.html.twig' %}
         {% endfor %}
@@ -12,3 +22,11 @@
 <br/>
 <br/>
 {% endblock body %}
+
+{% block jscontroller %}
+    <script type="application/javascript">
+        $(document).ready(function() {
+            var controller = new HistoryController();
+        });
+    </script>
+{% endblock %}

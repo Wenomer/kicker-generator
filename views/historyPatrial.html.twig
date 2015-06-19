@@ -12,12 +12,12 @@
     {% for match in dayMatches %}
         <tr>
             <td>{{ match.time }}</td>
-            <td>{{ match.red_goalkeeper_name }}</td>
-            <td>{{ match.red_forward_name }}</td>
-            <td>{{ match.blue_goalkeeper_name }}</td>
-            <td>{{ match.blue_forward_name }}</td>
-            <td>{{ match.red_score }}</td>
-            <td>{{ match.blue_score }}</td>
+            <td data-command="red-team" player="{{ match.red_goalkeeper_id }}">{{ match.red_goalkeeper_name }}</td>
+            <td data-command="red-team" player="{{ match.red_forward_id }}">{{ match.red_forward_name }}</td>
+            <td data-command="blue-team" player="{{ match.blue_goalkeeper_id }}">{{ match.blue_goalkeeper_name }}</td>
+            <td data-command="blue-team" player="{{ match.blue_forward_id }}">{{ match.blue_forward_name }}</td>
+            <td class="red-team" data-score="{{ match.red_score }}">{{ match.red_score }}</td>
+            <td class="red-team" data-score="{{ match.blue_score }}">{{ match.blue_score }}</td>
         </tr>
     {%  endfor %}
 </table>

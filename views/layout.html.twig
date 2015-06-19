@@ -69,115 +69,11 @@
 <script type="text/javascript" src="assets/manualMatch.js"></script>
 <script type="text/javascript" src="assets/tournament.js"></script>
 <script type="text/javascript" src="assets/statisticsController.js"></script>
+<script type="text/javascript" src="assets/historyController.js"></script>
 
 {% block jscontroller %}
 
 {% endblock %}
-
-<script id="match-form-template" type="application/template">
-    <form action="/api/match" method="POST" class="game-form match-form clearfix">
-        <div class="col-lg-4">
-            <div class="panel panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title" id="panel-title">Red Team</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="media media-goalkeeper">
-                        <div class="media-left">
-                            <img class="media-object" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=50" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                        </div>
-                        <div class="media-body">
-                            <input type="hidden" name="match[red_goalkeeper_id]" value="<% if (match) { %><%=match.redTeam.goalkeeper%><% } %>"/>
-                            <select class="form-control goalkeeper" name="match[red_goalkeeper_id]" <% if (isTournament) { %>disabled<% } %>>
-                                <option data-hash="00000000000000000000000000000000" value="0">Goalkeeper</option>
-                                {% if players is defined %}
-                                    {% for player in players %}
-                                        <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.redTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="media">
-                        <div class="media-left">
-                            <img class="media-object" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=50" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                        </div>
-                        <div class="media-body">
-                            <input type="hidden" name="match[red_forward_id]" value="<% if (match) { %><%=match.redTeam.forward%><% } %>"/>
-                            <select class="form-control forward" name="match[red_forward_id]" <% if (isTournament) { %>disabled<% } %>>
-                                <option data-hash="00000000000000000000000000000000" value="0">Forward</option>
-                                {% if players is defined %}
-                                    {% for player in players %}
-                                        <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.redTeam.forward == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title" id="panel-title">Blue Team</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="media media-goalkeeper">
-                        <div class="media-left">
-                            <img class="media-object" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=50" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                        </div>
-                        <div class="media-body">
-                            <input type="hidden" name="match[blue_goalkeeper_id]" value="<% if (match) { %><%=match.blueTeam.goalkeeper%><% } %>"/>
-                            <select class="form-control goalkeeper" name="match[blue_goalkeeper_id]" <% if (isTournament) { %>disabled<% } %>>
-                                <option data-hash="00000000000000000000000000000000" value="0">Goalkeeper</option>
-                                {% if players is defined %}
-                                    {% for player in players %}
-                                        <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.blueTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="media">
-                        <div class="media-left">
-                            <img class="media-object" src="https://www.gravatar.com/avatar/00000000000000000000000000000000?s=50" data-holder-rendered="true" style="width: 50px; height: 50px;">
-                        </div>
-                        <div class="media-body">
-                            <input type="hidden" name="match[blue_forward_id]" value="<% if (match) { %><%=match.blueTeam.forward%><% } %>"/>
-                            <select class="form-control forward" name="match[blue_forward_id]" <% if (isTournament) { %>disabled<% } %>>
-                                <option data-hash="00000000000000000000000000000000" value="0">Forward</option>
-                                {% if players is defined %}
-                                    {% for player in players %}
-                                        <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.blueTeam.forward == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                    {% endfor %}
-                                {% endif %}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title" id="panel-title">Score <span class="probability"></span></h3>
-                </div>
-                <div class="panel-body">
-                    <div>
-                        <input class="input-score red" name="match[red_score]" type="text" placeholder="0"/>
-                        <input class="input-score blue" name="match[blue_score]" type="text" placeholder="0"/>
-                    </div>
-
-                    <input class="btn btn-success save-score" type="submit" value="Save"/>
-                </div>
-            </div>
-        </div>
-    </form>
-</script>
-
 </body>
 
 </html>

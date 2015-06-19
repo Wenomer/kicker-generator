@@ -42,6 +42,7 @@ class FrontendController extends Controller
 
         return $this->app['twig']->render('history.html.twig', [
             'target' => 'history',
+            'players' => $this->app['repository.player']->fetchAll(),
             'history' => $grouppedHistory,
         ]);
     }

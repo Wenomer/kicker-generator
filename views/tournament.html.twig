@@ -33,16 +33,7 @@
         </div>
     </script>
 
-    <script id="match-template" type="application/template">
-        <tr>
-            <td><?= number?></td>
-            <td><b>A:</b> <?= t1[0]?></td>
-            <td><b>G:</b> <?= t1[1]?></td>
-            <td><b>VS</b></td>
-            <td><b>A:</b> <?= t2[0]?></td>
-            <td><b>G:</b> <?= t2[1]?></td>
-        </tr>
-    </script>
+    {% include 'gameTemplate.html.twig' %}
 {% endblock body %}
 
 {% block jscontroller %}
@@ -52,3 +43,4 @@
         });
     </script>
 {% endblock %}
+
