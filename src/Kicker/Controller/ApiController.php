@@ -60,14 +60,25 @@ class ApiController extends Controller
     public function ratingLogAction()
     {
         $logs = $this->app['repository.player_rating']->getLog();
+        $players = $this->app['repository.player']->fetchAll();
+        $matches = $this->app['repository.match']->fetchAll();
         $chartData = [];
+        $dataMatches = [];
+
+        foreach ($matches as $match) {
+            $dataMatches[$match['id']] = null;
+        }
+
+        foreach ($players as $player) {
+            $chartData[$player['id']] = ['name' => $player['name'], 'data' => $dataMatches];
+        }
 
         foreach ($logs as $log) {
-            if (!isset($chartData[$log['player_id']])) {
-                $chartData[$log['player_id']] = ['name' => $log['player_name'], 'data' => [0]];
-            }
+            $chartData[$log['player_id']]['data'][$log['match_id']] = floatval($log['rating']);
+        }
 
-            $chartData[$log['player_id']]['data'][] = floatval($log['rating']);
+        foreach ($players as $player) {
+            $chartData[$player['id']]['data'] = array_values($chartData[$player['id']]['data']);
         }
 
         return json_encode(array_values($chartData));
