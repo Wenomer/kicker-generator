@@ -122,14 +122,24 @@ MatchForm.prototype = {
     },
 
     excludePlayers: function (form) {
-        var selects = form.find('select');
+        var selects = form.find('select.form-control');
+        var options = $('#player-options');
 
         var values = _.reduce(selects, function (mem, select){
-            $(select).find('option').show();
-            var val = $(select).val();
+            select = $(select);
+            var val = select.val();
+
             if (val != 0) {
                 mem.push(val);
             }
+            select.html(options.html());
+
+            if (select.hasClass('goalkeeper')) {
+                select.find('.forward').remove();
+            } else {
+                select.find('.goalkeeper').remove();
+            }
+            select.val(val);
 
             return mem;
         }, []);
@@ -139,14 +149,10 @@ MatchForm.prototype = {
 
             _.each(values, function(value) {
                 if (select.val() != value) {
-                    select.find('option[value="' + value + '"]').hide();
+                    select.find('option[value="' + value + '"]').remove();
                 }
             });
         });
-
-        if (values.length) {
-
-        }
     },
 
     blockForm: function(form) {

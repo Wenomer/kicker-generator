@@ -14,9 +14,7 @@
                             <input type="hidden" name="match[red_goalkeeper_id]" value="<% if (match) { %><%=match.redTeam.goalkeeper%><% } %>"/>
                             <select class="form-control goalkeeper" name="match[red_goalkeeper_id]" <% if (isTournament) { %>disabled<% } %>>
                             <option data-hash="00000000000000000000000000000000" value="0">Goalkeeper</option>
-                                {% for player in players %}
-                                    <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.redTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                {% endfor %}
+                                {% include 'playerOptionsPartial.html.twig' %}
                             </select>
                         </div>
                     </div>
@@ -28,10 +26,8 @@
                         <div class="media-body">
                             <input type="hidden" name="match[red_forward_id]" value="<% if (match) { %><%=match.redTeam.forward%><% } %>"/>
                             <select class="form-control forward" name="match[red_forward_id]" <% if (isTournament) { %>disabled<% } %>>
-                            <option data-hash="00000000000000000000000000000000" value="0">Forward</option>
-                                {% for player in players %}
-                                    <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.redTeam.forward == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                {% endfor %}
+                                <option data-hash="00000000000000000000000000000000" value="0">Forward</option>
+                                {% include 'playerOptionsPartial.html.twig' %}
                             </select>
                         </div>
                     </div>
@@ -51,10 +47,8 @@
                         <div class="media-body">
                             <input type="hidden" name="match[blue_goalkeeper_id]" value="<% if (match) { %><%=match.blueTeam.goalkeeper%><% } %>"/>
                             <select class="form-control goalkeeper" name="match[blue_goalkeeper_id]" <% if (isTournament) { %>disabled<% } %>>
-                            <option data-hash="00000000000000000000000000000000" value="0">Goalkeeper</option>
-                                {% for player in players %}
-                                    <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.blueTeam.goalkeeper == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                {% endfor %}
+                                <option data-hash="00000000000000000000000000000000" value="0">Goalkeeper</option>
+                                {% include 'playerOptionsPartial.html.twig' %}
                             </select>
                         </div>
                     </div>
@@ -67,9 +61,7 @@
                             <input type="hidden" name="match[blue_forward_id]" value="<% if (match) { %><%=match.blueTeam.forward%><% } %>"/>
                             <select class="form-control forward" name="match[blue_forward_id]" <% if (isTournament) { %>disabled<% } %>>
                             <option data-hash="00000000000000000000000000000000" value="0">Forward</option>
-                                {% for player in players %}
-                                    <option data-hash="{{ player.hash }}" value="{{ player.id }}" <% if (match && match.blueTeam.forward == {{ player.id }}) { %>selected<% } %>>{{ player.name }}</option>
-                                {% endfor %}
+                                {% include 'playerOptionsPartial.html.twig' %}
                             </select>
                         </div>
                     </div>
@@ -92,4 +84,12 @@
             </div>
         </div>
     </form>
+</script>
+
+<script type="application/template" id="player-options">
+    <option data-hash="00000000000000000000000000000000" value="0" class="goalkeeper">Goalkeeper</option>
+    <option data-hash="00000000000000000000000000000000" value="0" class="forward">Forward</option>
+    {% for player in players %}
+        <option data-hash="{{ player.hash }}" value="{{ player.id }}">{{ player.name }}</option>
+    {% endfor %}
 </script>
