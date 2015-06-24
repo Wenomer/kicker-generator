@@ -14,6 +14,8 @@ class PlayerRepository extends Repository
             SELECT p.name player, p.rating as rating,
             SUM(IF(p.id = t.goalkeeper_id AND t.id = m.red_team_id, m.blue_score, IF(p.id = t.goalkeeper_id AND t.id = m.blue_team_id, m.red_score, 0))) as passed_goals,
             ROUND(SUM(IF(p.id = t.goalkeeper_id AND t.id = m.red_team_id, m.blue_score, IF(p.id = t.goalkeeper_id AND t.id = m.blue_team_id, m.red_score, 0))) / SUM(IF(p.id = t.goalkeeper_id, 1, 0)), 2) as avg_passed_goals,
+            SUM(IF(p.id = t.goalkeeper_id, 1, 0)) as matches_as_goalkeeper,
+            SUM(IF(p.id = t.forward_id, 1, 0)) as matches_as_forward,
             SUM(IF(p.id = t.forward_id AND t.id = m.red_team_id, m.red_score, IF(p.id = t.forward_id AND t.id = m.blue_team_id, m.blue_score, 0))) as goals,
             ROUND(SUM(IF(p.id = t.forward_id AND t.id = m.red_team_id, m.red_score, IF(p.id = t.forward_id AND t.id = m.blue_team_id, m.blue_score, 0))) / SUM(IF(p.id = t.forward_id, 1, 0)), 2) as avg_goals,
             ROUND((SUM((t.id = m.red_team_id AND m.red_score > m.blue_score) OR (t.id = m.blue_team_id AND m.blue_score > m.red_score)) / COUNT(m.id)) * 100 ) as win_percent,

@@ -2,7 +2,7 @@
 
 namespace Kicker\Repository;
 
-class Repository
+abstract class Repository
 {
     protected $db;
 
