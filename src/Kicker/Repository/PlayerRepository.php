@@ -38,12 +38,15 @@ SQL;
     {
         $this->db->executeUpdate("UPDATE players SET rating = 0");
         $this->db->executeUpdate("UPDATE teams SET rating = 0");
+        $this->db->executeUpdate("UPDATE squads SET rating = 0");
         $this->db->executeUpdate("TRUNCATE TABLE player_rating_log");
         $this->db->executeUpdate("TRUNCATE TABLE team_rating_log");
+        $this->db->executeUpdate("TRUNCATE TABLE squad_rating_log");
     }
 
     public function calculateRatings($matches)
     {
+        $this->generateSquads();
         $this->resetRating();
 
         foreach ($matches as $match) {
@@ -55,6 +58,9 @@ SQL;
     {
         $playerRatings = $this->getPlayersRating($match['red_goalkeeper_id'], $match['red_forward_id'], $match['blue_goalkeeper_id'], $match['blue_forward_id']);
         $teamRatings = $this->getTeamsRating($match['red_team_id'], $match['blue_team_id']);
+        $redSquadId = [$match['red_goalkeeper_id'], $match['red_forward_id']];
+        $blueSquadId = [$match['blue_goalkeeper_id'], $match['blue_forward_id']];
+        $squadRatings = $this->getSquadsRating($redSquadId, $blueSquadId);
 
         $newPlayerRating = $this->calculateRating(
             $playerRatings[$match['red_goalkeeper_id']],
@@ -166,6 +172,24 @@ SQL
           SELECT id, rating
           FROM teams
           WHERE id IN ({$redTeamId}, {$blueTeamId})
+SQL
+        );
+
+        foreach ($scores as $score) {
+            $rating[$score['id']] = $score['rating'];
+        }
+
+        return $rating;
+    }
+
+    private function getSquadsRating($redSquadId, $blueSquadId)
+    {
+        $rating = [];
+
+        $scores =  $this->db->fetchAll(<<<SQL
+          SELECT id, rating
+          FROM squads
+          WHERE id IN ({$redSquadId}, {$blueSquadId})
 SQL
         );
 

@@ -12,8 +12,10 @@ abstract class Repository
         $this->db = $db;
     }
 
-    public function fetchAll()
+    public function fetchAll($limit = null)
     {
-        return $this->db->fetchAll("SELECT * FROM " . static::$table);
+        $limit = $limit ? "LIMIT " . intval($limit) : '';
+        var_dump("SELECT * FROM " . static::$table . " " . $limit);
+        return $this->db->fetchAll("SELECT * FROM " . static::$table . " " . $limit);
     }
 }

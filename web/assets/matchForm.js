@@ -42,7 +42,7 @@ MatchForm.prototype = {
                             }
                         }
                         form.find('input[type=submit]').removeAttr('disabled');
-                        self.excludePlayers(form);
+                        //self.excludePlayers(form);
                         self.getProbability(form);
                         self.updateAvatars(form);
                     }
@@ -58,7 +58,7 @@ MatchForm.prototype = {
             var select = $(e.currentTarget);
             var form = select.closest('form');
             select.closest('.media').find('img').attr('src', 'https://www.gravatar.com/avatar/' + select.find('option:selected').data('hash') + '?s=50');
-            self.excludePlayers(form);
+            //self.excludePlayers(form);
             self.getProbability(form);
             self.updateAvatars(form);
         });

@@ -27,6 +27,25 @@
     <br/>
     <div class="row">
         <div class="col-lg-6">
+            <h4>Top 10 Dispositions</h4>
+            <table data-toggle="table"
+                   data-url="/api/statistics/team" data-side-pagination="server"
+                   data-sort-name="team_rating"
+                   data-sort-order="desc">
+                <thead>
+                <tr>
+                    <th data-field="goalkeeper">Goalkeeper</th>
+                    <th data-field="forward">Forward</th>
+                    <th data-field="wins" data-sortable="true">Wins</th>
+                    <th data-field="matches" data-sortable="true">Matches</th>
+                    <th data-field="win_percent" data-sortable="true">%</th>
+                    <th data-field="team_rating" data-sortable="true">Rating</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="col-lg-6">
             <h4>Top 10 Teams</h4>
             <table data-toggle="table"
                    data-url="/api/statistics/team" data-side-pagination="server"
@@ -44,6 +63,10 @@
                 </thead>
             </table>
         </div>
+
+    </div>
+    <br/>
+    <div class="row">
         <div class="col-lg-3">
             <h4>Best Goalkeeper</h4>
             <table data-toggle="table"
@@ -81,7 +104,7 @@
     <br/>
     <div class="row">
         <div class="col-lg-12">
-            <h4>Rating Growth</h4>
+            <h4>Rating Growth (Last 100 Matches)</h4>
             <div class="rating-flow"></div>
         </div>
         <br/>

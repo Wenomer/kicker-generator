@@ -98,3 +98,23 @@ CREATE TABLE `team_rating_log` (
   CONSTRAINT `team_rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `team_rating_team` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+DROP TABLE IF EXISTS `squads`;
+CREATE TABLE `squads` (
+  `id` varchar(5) NOT NULL,
+  `p1_id` tinyint(3) unsigned NOT NULL,
+  `p2_id` tinyint(3) unsigned NOT NULL,
+  `rating` float(6,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  CONSTRAINT `squads_p1` FOREIGN KEY (`p1_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `squads_p2` FOREIGN KEY (`p2_id`) REFERENCES `players` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `squad_rating_log`;
+CREATE TABLE `squad_rating_log` (
+  `squad_id` varchar(5) NOT NULL,
+  `match_id` int(3) unsigned NOT NULL,
+  `rating` float(6,2) NOT NULL,
+  CONSTRAINT `squad_rating_match` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `squad_rating_squad` FOREIGN KEY (`squad_id`) REFERENCES `squads` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
