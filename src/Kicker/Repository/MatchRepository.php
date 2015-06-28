@@ -8,7 +8,7 @@ class MatchRepository extends Repository
 
     public function save($redTeamId, $blueTeamId, $redScore, $blueScore)
     {
-        $this->db->executeUpdate("INSERT INTO matches (`red_team_id`, `blue_team_id`, `red_score`, `blue_score`)
+        $this->getConnection()->executeUpdate("INSERT INTO matches (`red_team_id`, `blue_team_id`, `red_score`, `blue_score`)
                                   VALUES (:redTeamId, :blueTeamId, :redScore, :blueScore)", [
             'redTeamId' => $redTeamId,
             'blueTeamId' => $blueTeamId,
@@ -16,7 +16,7 @@ class MatchRepository extends Repository
             'blueScore' => $blueScore
         ]);
 
-        return $this->db->lastInsertId();
+        return $this->getConnection()->lastInsertId();
     }
 
     public function getHistory($order = 'DESC')
@@ -46,6 +46,6 @@ class MatchRepository extends Repository
             JOIN players as blue_forward ON blue_forward.id = blue_team.forward_id
             ORDER BY date {$order}
 SQL;
-        return $this->db->fetchAll($sql);
+        return $this->getConnection()->fetchAll($sql);
     }
 }

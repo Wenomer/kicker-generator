@@ -4,13 +4,13 @@ namespace Kicker\Repository;
 
 use Kicker\Rating\Elo;
 
-class TeamRepository extends Repository
+class TeamRepository extends ParticipantRepository
 {
     static $table = 'teams';
 
-    public function getOrCreateTeamId($goalkeeperId, $forwardId)
+    public function getOrCreateId($goalkeeperId, $forwardId)
     {
-        $team = $this->db->fetchAll('SELECT * FROM teams WHERE goalkeeper_id = :goalkeeper AND forward_id = :forward', [
+        $team = $this->getConnection()->fetchAll('SELECT * FROM teams WHERE goalkeeper_id = :goalkeeper AND forward_id = :forward', [
             'goalkeeper' => $goalkeeperId,
             'forward' => $forwardId
         ]);
@@ -39,7 +39,7 @@ class TeamRepository extends Repository
             limit 10
 SQL;
 
-        return $this->db->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
+        return $this->getConnection()->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
     }
 
 
@@ -57,17 +57,17 @@ SQL;
             ORDER BY {$sort} {$order}
 SQL;
 
-        return $this->db->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
+        return $this->getConnection()->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
     }
 
     private function create($goalkeeperId, $forwardId)
     {
-        $this->db->executeUpdate("INSERT INTO teams (`goalkeeper_id`, `forward_id`) VALUES (:goalkeeper, :forward)", [
+        $this->getConnection()->executeUpdate("INSERT INTO teams (`goalkeeper_id`, `forward_id`) VALUES (:goalkeeper, :forward)", [
             'goalkeeper' => $goalkeeperId,
             'forward' => $forwardId
         ]);
 
-        return $this->db->lastInsertId();
+        return $this->getConnection()->lastInsertId();
     }
 
     public function getWinProbability($redTeamId, $blueTeamId)
@@ -84,7 +84,7 @@ SQL;
     {
         $rating = [];
 
-        $scores =  $this->db->fetchAll(<<<SQL
+        $scores =  $this->getConnection()->fetchAll(<<<SQL
           SELECT id, rating
           FROM teams
           WHERE id IN ({$redTeamId}, {$blueTeamId})

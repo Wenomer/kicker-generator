@@ -42,3 +42,20 @@
 .game-form .media-goalkeeper {
     margin-bottom: 10px;
 }
+
+.values-block{
+    font-size: 29px;
+}
+
+.values-block .panel-body{
+    text-align: center;
+    padding: 9px 20px;
+}
+
+.values-block.values-block-top {
+    margin-top: 39px;
+}
+
+.values-block.values-block-bottom .panel {
+    margin-bottom: 0;
+}
