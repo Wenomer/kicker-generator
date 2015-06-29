@@ -40,7 +40,7 @@ class ApiController extends Controller
             $this->getSquadRatingRepository()->update($match, $this->getSquadRepository());
         }
 
-        return new SuccessJsonResponse('');
+        return new SuccessJsonResponse();
     }
 
     public function probabilityAction(Request $request)

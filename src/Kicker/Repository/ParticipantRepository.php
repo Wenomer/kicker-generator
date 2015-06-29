@@ -9,12 +9,13 @@ class ParticipantRepository extends Repository
         $members = '"' . implode('","', $members) . '"';
         $table = static::$table;
 
-        $scores =  $this->getConnection()->fetchAll(<<<SQL
+        $sql = <<<SQL
           SELECT id, rating
           FROM {$table}
           WHERE id IN ({$members})
-SQL
-        );
+SQL;
+
+        $scores =  $this->getConnection()->fetchAll($sql);
 
         foreach ($scores as $score) {
             $rating[$score['id']] = $score['rating'];

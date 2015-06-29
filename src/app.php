@@ -28,6 +28,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 
 $db = $app['db'];
 
+//Services
 $app['rating.calculator'] = $app->share(function() use ($db) {
     return new \Kicker\Rating\Elo();
 });

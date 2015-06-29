@@ -8,8 +8,13 @@ class MatchRepository extends Repository
 
     public function save($redTeamId, $blueTeamId, $redScore, $blueScore)
     {
-        $this->getConnection()->executeUpdate("INSERT INTO matches (`red_team_id`, `blue_team_id`, `red_score`, `blue_score`)
-                                  VALUES (:redTeamId, :blueTeamId, :redScore, :blueScore)", [
+        $sql = <<<SQL
+            INSERT INTO matches (`red_team_id`, `blue_team_id`, `red_score`, `blue_score`)
+            VALUES (:redTeamId, :blueTeamId, :redScore, :blueScore)
+SQL;
+
+
+        $this->getConnection()->executeUpdate($sql, [
             'redTeamId' => $redTeamId,
             'blueTeamId' => $blueTeamId,
             'redScore' => $redScore,
