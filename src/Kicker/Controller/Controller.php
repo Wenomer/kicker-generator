@@ -74,4 +74,12 @@ class Controller
     {
         return $this->app['repository.squad_rating'];
     }
+
+    /**
+     * @return \Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this->app['twig'];
+    }
 }

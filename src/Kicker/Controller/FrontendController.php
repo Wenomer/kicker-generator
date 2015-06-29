@@ -6,44 +6,44 @@ class FrontendController extends Controller
 {
     public function tournamentAction()
     {
-        return $this->app['twig']->render('tournament.html.twig', [
+        return $this->getTwig()->render('tournament.html.twig', [
             'target' => 'tournament',
-            'players' => $this->app['repository.player']->fetchAll()
+            'players' => $this->getPlayerRepository()->fetchAll()
         ]);
     }
 
     public function manualMatchAction()
     {
-        return $this->app['twig']->render('manualMatch.html.twig', [
+        return $this->getTwig()->render('manualMatch.html.twig', [
             'target' => 'manual-match',
-            'players' => $this->app['repository.player']->fetchAll()
+            'players' => $this->getPlayerRepository()->fetchAll()
         ]);
     }
 
     public function statisticsAction()
     {
-        return $this->app['twig']->render('statistics.html.twig', [
+        return $this->getTwig()->render('statistics.html.twig', [
             'target' => 'statistics'
         ]);
     }
 
     public function historyAction()
     {
-        $history = $this->app['repository.match']->getHistory();
-        $grouppedHistory = [];
+        $history = $this->getMatchRepository()->getHistory();
+        $groupedHistory = [];
 
         foreach ($history as $match) {
-            if (!isset($grouppedHistory[$match['day']])) {
-                $grouppedHistory[$match['day']] = [];
+            if (!isset($groupedHistory[$match['day']])) {
+                $groupedHistory[$match['day']] = [];
             }
 
-            $grouppedHistory[$match['day']][] = $match;
+            $groupedHistory[$match['day']][] = $match;
         }
 
-        return $this->app['twig']->render('history.html.twig', [
+        return $this->getTwig()->render('history.html.twig', [
             'target' => 'history',
-            'players' => $this->app['repository.player']->fetchAll(),
-            'history' => $grouppedHistory,
+            'players' => $this->getPlayerRepository()->fetchAll(),
+            'history' => $groupedHistory,
         ]);
     }
 }
