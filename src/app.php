@@ -105,5 +105,8 @@ $app->get('/api/statistics/rating-log', 'controller.api.statistics:ratingLogActi
 $app->get('/api/metrics/matches', 'controller.api.metrics:matchesAction');
 $app->get('/api/metrics/game-days', 'controller.api.metrics:gameDaysAction');
 $app->get('/api/metrics/goals', 'controller.api.metrics:goalsAction');
+$app->get('/api/metrics/max-matches', 'controller.api.metrics:maxMatchesAction');
+$app->get('/api/metrics/avg-games', 'controller.api.metrics:avgMatchesAction');
+$app->get('/api/metrics/popular-day', 'controller.api.metrics:popularDayAction');
 
 return $app;

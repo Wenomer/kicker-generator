@@ -9,18 +9,37 @@ class MetricsController extends Controller
 {
     public function matchesAction()
     {
-        return new SuccessJsonResponse(count($this->getMatchRepository()->fetchAll()));
+        $metrics = $this->getMatchRepository()->getDaysMetrics();
+        return new SuccessJsonResponse($metrics->getMatchesCount());
     }
 
     public function gameDaysAction()
     {
-        $metrics = $this->getMatchRepository()->getMetrics();
-        return new SuccessJsonResponse($metrics['count']);
+        $metrics = $this->getMatchRepository()->getDaysMetrics();
+        return new SuccessJsonResponse($metrics->getDaysCount());
     }
 
     public function goalsAction()
     {
-        $metrics = $this->getMatchRepository()->getMetrics();
-        return new SuccessJsonResponse($metrics['goals']);
+        $metrics = $this->getMatchRepository()->getDaysMetrics();
+        return new SuccessJsonResponse($metrics->getGoalsCount());
+    }
+
+    public function maxMatchesAction()
+    {
+        $metrics = $this->getMatchRepository()->getDaysMetrics();
+        return new SuccessJsonResponse($metrics->getMaxMatches());
+    }
+
+    public function avgMatchesAction()
+    {
+        $metrics = $this->getMatchRepository()->getDaysMetrics();
+        return new SuccessJsonResponse($metrics->getAvgMatches());
+    }
+
+    public function popularDayAction()
+    {
+        $metrics = $this->getMatchRepository()->getDaysMetrics();
+        return new SuccessJsonResponse($metrics->getPopularDay());
     }
 }

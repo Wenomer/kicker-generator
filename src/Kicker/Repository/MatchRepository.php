@@ -49,20 +49,19 @@ SQL;
         return $this->getConnection()->fetchAll($sql);
     }
 
-    public function getMetrics()
+    /**
+     * @return DaysMetricsResult
+     */
+    public function getDaysMetrics()
     {
         $sql = <<<SQL
-           SELECT COUNT(*) as count, SUM(goals) as goals FROM (
-              SELECT id, SUM(red_score) + SUM(blue_score) as goals FROM matches GROUP BY DATE_FORMAT(date, '%y-%m-%d')
-          ) groupped
+            SELECT
+            DATE_FORMAT(date, '%y-%m-%d') as date,
+            DATE_FORMAT(date, '%W') as day,
+            SUM(red_score) + SUM(blue_score) as goals,
+            COUNT(id) as matches
+            FROM matches GROUP BY DATE_FORMAT(date, '%y-%m-%d')
 SQL;
-        $result = $this->getConnection()->fetchAll($sql);
-        if (empty($result)) {
-            $result = ['count' => 0, 'goals' =>0];
-        } else {
-            $result = $result[0];
-        }
-
-        return $result;
+        return new DaysMetricsResult($this->getConnection()->fetchAll($sql));
     }
 }
