@@ -11,14 +11,16 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
 ));
 
+$app->register(new DerAlex\Silex\YamlConfigServiceProvider( __DIR__ . '/../config/parameters.yml'));
+
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'dbs.options' => array (
         'mysql' => array(
             'driver'    => 'pdo_mysql',
-            'host'      => '127.0.0.1',
+            'host'      => $app['config']['database']['host'],
             'dbname'    => 'kicker',
-            'user'      => 'root',
-            'password'  => 'root',
+            'user'      => $app['config']['database']['user'],
+            'password'  => $app['config']['database']['password'],
             'charset'   => 'utf8mb4',
         )
     ),
