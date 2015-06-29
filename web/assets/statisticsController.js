@@ -1,10 +1,20 @@
 var StatisticsController = function () {
     this.renderChart();
+    this.loadMetrics();
 };
 
 StatisticsController.prototype = {
+    loadMetrics: function () {
+        var loader = new MetricsLoader();
+
+        _.each($('.values-block'), function(block){
+            loader.load($(block));
+        });
+    },
+
     renderChart: function () {
-        $.getJSON('/api/statistics/rating-log', function (series) {
+        $.getJSON('/api/statistics/rating-log', function (response) {
+            var series = response.data;
             $('.rating-flow').highcharts({
                 title: {
                     text: ''

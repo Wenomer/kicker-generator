@@ -110,10 +110,10 @@ MatchForm.prototype = {
 
         if (_.size(values) === 4) {
             $.getJSON('/api/probability', {match: values}, function (response) {
-                if (response.redWin > response.blueWin) {
-                    probability.html('   (' + response.redWin + '% Red Win)');
+                if (response.data.redWin > response.data.blueWin) {
+                    probability.html('   (' + response.data.redWin + '% Red Win)');
                 } else {
-                    probability.html('   (' + response.blueWin + '% Blue Win)');
+                    probability.html('   (' + response.data.blueWin + '% Blue Win)');
                 }
             });
         } else {

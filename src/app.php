@@ -30,6 +30,7 @@ $app['rating.calculator'] = $app->share(function() use ($db) {
     return new \Kicker\Rating\Elo();
 });
 
+//Repositories
 $app['repository.player'] = $app->share(function() use ($app) {
     return new \Kicker\Repository\PlayerRepository($app['db'], $app['rating.calculator']);
 });
@@ -58,27 +59,51 @@ $app['repository.squad_rating'] = $app->share(function() use ($app) {
     return new \Kicker\Repository\SquadRatingRepository($app['db'], $app['rating.calculator']);
 });
 
+//Controllers
+
 $app['controller.frontend'] = $app->share(function() use ($app) {
     return new \Kicker\Controller\FrontendController($app);
 });
 
+//API Controllers
 $app['controller.api'] = $app->share(function() use ($app) {
-    return new \Kicker\Controller\ApiController($app);
+    return new \Kicker\Controller\Api\ApiController($app);
 });
+
+$app['controller.api.statistics'] = $app->share(function() use ($app) {
+    return new \Kicker\Controller\Api\StatisticsController($app);
+});
+
+$app['controller.api.metrics'] = $app->share(function() use ($app) {
+    return new \Kicker\Controller\Api\MetricsController($app);
+});
+
+//Routes pages
 
 $app->get('/', 'controller.frontend:manualMatchAction');
 $app->get('/tournament', 'controller.frontend:tournamentAction');
 $app->get('/statistics', 'controller.frontend:statisticsAction');
 $app->get('/history', 'controller.frontend:historyAction');
 
+//Routes Actions Api
+
 $app->post('/api/match', 'controller.api:saveMatchAction');
 $app->get('/api/history', 'controller.api:historyAction');
-$app->get('/api/statistics/team', 'controller.api:teamStatisticsAction');
-$app->get('/api/statistics/player', 'controller.api:playerStatisticsAction');
-$app->get('/api/statistics/squad', 'controller.api:squadStatisticsAction');
-$app->get('/api/statistics/color', 'controller.api:colorStatisticsAction');
-$app->get('/api/statistics/rating-log', 'controller.api:ratingLogAction');
 $app->get('/api/probability', 'controller.api:probabilityAction');
 $app->get('/api/calculate-rating', 'controller.api:calculateRatingAction');
+
+//Routes Statistics API
+
+$app->get('/api/statistics/team', 'controller.api.statistics:teamStatisticsAction');
+$app->get('/api/statistics/player', 'controller.api.statistics:playerStatisticsAction');
+$app->get('/api/statistics/squad', 'controller.api.statistics:squadStatisticsAction');
+$app->get('/api/statistics/color', 'controller.api.statistics:colorStatisticsAction');
+$app->get('/api/statistics/rating-log', 'controller.api.statistics:ratingLogAction');
+
+//Routes Metrics Api
+
+$app->get('/api/metrics/matches', 'controller.api.metrics:matchesAction');
+$app->get('/api/metrics/game-days', 'controller.api.metrics:gameDaysAction');
+$app->get('/api/metrics/goals', 'controller.api.metrics:goalsAction');
 
 return $app;

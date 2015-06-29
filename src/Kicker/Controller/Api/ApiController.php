@@ -1,7 +1,9 @@
 <?php
 
-namespace Kicker\Controller;
+namespace Kicker\Controller\Api;
 
+use Kicker\Controller\Controller;
+use Kicker\Http\SuccessJsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class ApiController extends Controller
@@ -23,44 +25,7 @@ class ApiController extends Controller
         $this->getTeamRatingRepository()->update($match, $this->getTeamRepository());
         $this->getSquadRatingRepository()->update($match, $this->getSquadRepository());
 
-        return json_encode(['success' => true]);
-    }
-
-    public function teamStatisticsAction(Request $request)
-    {
-        $sort = $request->get('sort');
-        $order = $request->get('order');
-
-        return json_encode(['rows' => $this->getTeamRepository()->getStatistics($sort, $order)]);
-    }
-
-    public function playerStatisticsAction(Request $request)
-    {
-        $sort = $request->get('sort');
-        $order = $request->get('order');
-
-        return json_encode(['rows' => $this->getPlayerRepository()->getStatistics($sort, $order)]);
-    }
-
-    public function squadStatisticsAction(Request $request)
-    {
-        $sort = $request->get('sort');
-        $order = $request->get('order');
-
-        return json_encode(['rows' => $this->getSquadRepository()->getStatistics($sort, $order)]);
-    }
-
-    public function colorStatisticsAction(Request $request)
-    {
-        $sort = $request->get('sort');
-        $order = $request->get('order');
-
-        return json_encode(['rows' => $this->app['repository.team']->getColorStatistics($sort, $order)]);
-    }
-
-    public function historyAction()
-    {
-        return json_encode(['rows' => $this->app['repository.match']->getHistory()]);
+        return new SuccessJsonResponse();
     }
 
     public function calculateRatingAction()
@@ -75,34 +40,7 @@ class ApiController extends Controller
             $this->getSquadRatingRepository()->update($match, $this->getSquadRepository());
         }
 
-        return 'DONE';
-    }
-
-    public function ratingLogAction()
-    {
-        $logs = $this->app['repository.player_rating']->getLog();
-        $players = $this->app['repository.player']->fetchAll();
-        $matches = $this->app['repository.match']->fetchAll();
-        $chartData = [];
-        $dataMatches = [];
-
-        foreach ($matches as $match) {
-            $dataMatches[$match['id']] = null;
-        }
-
-        foreach ($players as $player) {
-            $chartData[$player['id']] = ['name' => $player['name'], 'data' => $dataMatches];
-        }
-
-        foreach ($logs as $log) {
-            $chartData[$log['player_id']]['data'][$log['match_id']] = floatval($log['rating']);
-        }
-
-        foreach ($players as $player) {
-            $chartData[$player['id']]['data'] = array_values($chartData[$player['id']]['data']);
-        }
-
-        return json_encode(array_values($chartData));
+        return new SuccessJsonResponse('');
     }
 
     public function probabilityAction(Request $request)
@@ -112,7 +50,7 @@ class ApiController extends Controller
         $redTeamId = $this->getTeamRepository()->getOrCreateId($match['red_goalkeeper_id'], $match['red_forward_id']);
         $blueTeamId = $this->getTeamRepository()->getOrCreateId($match['blue_goalkeeper_id'], $match['blue_forward_id']);
 
-        return json_encode($this->getTeamRepository()->getWinProbability($redTeamId, $blueTeamId));
+        return new SuccessJsonResponse($this->getTeamRepository()->getWinProbability($redTeamId, $blueTeamId));
     }
 
     private function resetRatings()

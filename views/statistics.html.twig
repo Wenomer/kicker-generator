@@ -99,37 +99,37 @@
                 </thead>
             </table>
         </div>
-        {#<div class="col-lg-2 values-block">#}
-            {#<h4>Game Metrics</h4>#}
-            {#<div class="panel panel-success">#}
-                {#<div class="panel-heading">#}
-                    {#<h3 class="panel-title" id="panel-title">Matches Count</h3>#}
-                {#</div>#}
-                {#<div class="panel-body">#}
-                    {#0#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="col-lg-2 values-block values-block-top">#}
-            {#<div class="panel panel-success">#}
-                {#<div class="panel-heading">#}
-                    {#<h3 class="panel-title" id="panel-title">Game Days</h3>#}
-                {#</div>#}
-                {#<div class="panel-body">#}
-                    {#0#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="col-lg-2 values-block values-block-top">#}
-            {#<div class="panel panel-success">#}
-                {#<div class="panel-heading">#}
-                    {#<h3 class="panel-title" id="panel-title">Total Goals</h3>#}
-                {#</div>#}
-                {#<div class="panel-body">#}
-                    {#0#}
-                {#</div>#}
-            {#</div>#}
-        {#</div>#}
+        <div class="col-lg-2 values-block" data-url="/api/metrics/matches">
+            <h4>Game Metrics</h4>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title" id="panel-title">Matches Count</h3>
+                </div>
+                <div class="panel-body">
+                    0
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 values-block values-block-top" data-url="/api/metrics/game-days">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title" id="panel-title">Game Days</h3>
+                </div>
+                <div class="panel-body">
+                    0
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 values-block values-block-top" data-url="/api/metrics/goals">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title" id="panel-title">Total Goals</h3>
+                </div>
+                <div class="panel-body">
+                    0
+                </div>
+            </div>
+        </div>
         {#<div class="col-lg-2 values-block">#}
             {#<div class="panel panel-info">#}
                 {#<div class="panel-heading">#}

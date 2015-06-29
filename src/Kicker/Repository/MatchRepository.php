@@ -48,4 +48,21 @@ class MatchRepository extends Repository
 SQL;
         return $this->getConnection()->fetchAll($sql);
     }
+
+    public function getMetrics()
+    {
+        $sql = <<<SQL
+           SELECT COUNT(*) as count, SUM(goals) as goals FROM (
+              SELECT id, SUM(red_score) + SUM(blue_score) as goals FROM matches GROUP BY DATE_FORMAT(date, '%y-%m-%d')
+          ) groupped
+SQL;
+        $result = $this->getConnection()->fetchAll($sql);
+        if (empty($result)) {
+            $result = ['count' => 0, 'goals' =>0];
+        } else {
+            $result = $result[0];
+        }
+
+        return $result;
+    }
 }
