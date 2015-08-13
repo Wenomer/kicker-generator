@@ -59,3 +59,15 @@
 .values-block.values-block-bottom .panel {
     margin-bottom: 0;
 }
+
+.history td span {
+    float: right;
+}
+
+.history td span.positive {
+    color: #005A00;
+}
+
+.history td span.negative {
+    color: #A20000;
+}
