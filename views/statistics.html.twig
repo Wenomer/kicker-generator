@@ -99,6 +99,23 @@
                 </thead>
             </table>
         </div>
+        <div class="col-lg-3">
+            <h4>Previous week results</h4>
+            <table data-toggle="table"
+                   data-url="/api/statistics/last-week-rating" data-side-pagination="server"
+                   data-sort-name="rating_diff"
+                   data-sort-order="desc"
+                   data-date="2015-08-13">
+                <thead>
+                <tr>
+                    <th data-field="player">Player</th>
+                    <th data-field="rating_diff">Rating</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-2 values-block" data-url="/api/metrics/matches">
             <h4>Game Metrics</h4>
             <div class="panel panel-success">

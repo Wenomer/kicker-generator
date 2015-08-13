@@ -102,6 +102,7 @@ $app->get('/api/statistics/player', 'controller.api.statistics:playerStatisticsA
 $app->get('/api/statistics/squad', 'controller.api.statistics:squadStatisticsAction');
 $app->get('/api/statistics/color', 'controller.api.statistics:colorStatisticsAction');
 $app->get('/api/statistics/rating-log', 'controller.api.statistics:ratingLogAction');
+$app->get('/api/statistics/last-week-rating', 'controller.api.statistics:lastWeekRatingChangeAction');
 
 //Routes Metrics Api
 
