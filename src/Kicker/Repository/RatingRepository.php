@@ -19,9 +19,10 @@ abstract class RatingRepository extends Repository
         return $elo::calculate($oldRating, $score, $commandRating, $opponentRating);
     }
 
-    protected function saveLog($playerId, $matchId, $rating) {
+    protected function saveLog($playerId, $matchId, $rating, $diff)
+    {
 
-        $this->getConnection()->insert(static::$table, [static::$participantFieldName => $playerId, 'match_id' => $matchId, 'rating' => $rating]);
+        $this->getConnection()->insert(static::$table, [static::$participantFieldName => $playerId, 'match_id' => $matchId, 'rating' => $rating, 'diff' => $diff]);
     }
 
     protected function saveRating($rows, $matchId, ParticipantRepository $participantRepository)
@@ -31,7 +32,7 @@ abstract class RatingRepository extends Repository
             $rating = $this->calculateRating($row['old'], $row['score'], $row['opponent'], $commandRating);
 
             $participantRepository->saveRating($row['id'], $rating);
-            $this->saveLog($row['id'], $matchId, $rating);
+            $this->saveLog($row['id'], $matchId, $rating, $rating - $row['old']);
         }
     }
 
