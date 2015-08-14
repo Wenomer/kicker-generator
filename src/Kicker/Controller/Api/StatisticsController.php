@@ -72,4 +72,13 @@ class StatisticsController extends Controller
 
         return new SuccessJsonResponse(array_values($chartData));
     }
+
+    public function lastWeekRatingChangeAction(Request $request)
+    {
+        $sort = $request->get('sort');
+        $order = $request->get('order');
+        $date = $request->get('date');
+
+        return new TableJsonResponse($this->getPlayerRatingRepository()->getWeekRatingChange($sort, $order, date($date, 'Y-m-d')));
+    }
 }

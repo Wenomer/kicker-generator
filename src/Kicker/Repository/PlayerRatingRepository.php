@@ -64,4 +64,22 @@ SQL;
 
         $this->saveRating($players, $match['id'], $playerRepository);
     }
+
+    public function getWeekRatingChange($sort, $order, $date)
+    {
+        $sql = <<<SQL
+            SELECT
+              SUM(diff) as rating_diff,
+              players.name as player,
+              matches.date as date
+            FROM player_rating_log
+            JOIN matches ON matches.id = player_rating_log.`match_id`
+            JOIN players ON player_rating_log.player_id = players.id
+            WHERE date_format(matches.date, '%u %Y') = date_format('2015-08-13', '%u %Y')
+            GROUP BY player_rating_log.player_id
+            ORDER BY {$sort} {$order}
+SQL;
+
+        return $this->getConnection()->fetchAll($sql, ['date' => $date]);
+    }
 }
