@@ -64,10 +64,14 @@
     float: right;
 }
 
-.history td span.positive {
-    color: #005A00;
+.rating-positive {
+    color: #468847;
 }
 
-.history td span.negative {
-    color: #A20000;
+.rating-negative {
+    color: #b94a48;
+}
+
+.day-change {
+    margin-left: 30px;
 }

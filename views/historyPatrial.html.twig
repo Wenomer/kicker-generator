@@ -1,43 +1,45 @@
-<h4>{{ day|date("l d-m-Y") }}</h4>
-<table class="table table-bordered history">
-    <tr>
-        <th>Time</th>
-        <th>RG</th>
-        <th>RF</th>
-        <th>BG</th>
-        <th>BF</th>
-        <th>R Score</th>
-        <th>B Score</th>
-    </tr>
-    {% for match in dayMatches %}
+<div class="day-block">
+    <h4 title-day="{{ day|date("d-m-Y") }}">{{ day|date("l d-m-Y") }} <span class="day-change"></span></h4>
+    <table class="table table-bordered history" data-day="{{ day|date("d-m-Y") }}">
         <tr>
-            <td>{{ match.time }}</td>
-            <td data-command="red-team" player="{{ match.red_goalkeeper_id }}">
-                {{ match.red_goalkeeper_name }}
-                <span class="{{ match.red_goalkeeper_rating_diff > 0 ? 'positive' : 'negative' }}">
-                    {{ match.red_goalkeeper_rating_diff }}
-                </span>
-            </td>
-            <td data-command="red-team" player="{{ match.red_forward_id }}">
-                {{ match.red_forward_name }}
-                <span class="{{ match.red_forward_rating_diff > 0 ? 'positive' : 'negative' }}">
-                    {{ match.red_forward_rating_diff }}
-                </span>
-            </td>
-            <td data-command="blue-team" player="{{ match.blue_goalkeeper_id }}">
-                {{ match.blue_goalkeeper_name }}
-                <span class="{{ match.blue_goalkeeper_rating_diff > 0 ? 'positive' : 'negative' }}">
-                    {{ match.blue_goalkeeper_rating_diff }}
-                </span>
-            </td>
-            <td data-command="blue-team" player="{{ match.blue_forward_id }}">
-                {{ match.blue_forward_name }}
-                <span class="{{ match.blue_forward_rating_diff > 0 ? 'positive' : 'negative' }}">
-                    {{ match.blue_forward_rating_diff }}
-                </span>
-            </td>
-            <td class="red-team" data-score="{{ match.red_score }}">{{ match.red_score }}</td>
-            <td class="blue-team" data-score="{{ match.blue_score }}">{{ match.blue_score }}</td>
+            <th>Time</th>
+            <th>RG</th>
+            <th>RF</th>
+            <th>BG</th>
+            <th>BF</th>
+            <th>R Score</th>
+            <th>B Score</th>
         </tr>
-    {%  endfor %}
-</table>
+        {% for match in dayMatches %}
+            <tr>
+                <td>{{ match.time }}</td>
+                <td data-command="red-team" player="{{ match.red_goalkeeper_id }}" data-rating-change="{{ match.red_goalkeeper_rating_diff }}">
+                    {{ match.red_goalkeeper_name }}
+                    <span class="rating-{{ match.red_goalkeeper_rating_diff > 0 ? 'positive' : 'negative' }}">
+                        {{ match.red_goalkeeper_rating_diff }}
+                    </span>
+                </td>
+                <td data-command="red-team" player="{{ match.red_forward_id }} data-rating-change="{{ match.red_forward_rating_diff }}">
+                    {{ match.red_forward_name }}
+                    <span class="rating-{{ match.red_forward_rating_diff > 0 ? 'positive' : 'negative' }}">
+                        {{ match.red_forward_rating_diff }}
+                    </span>
+                </td>
+                <td data-command="blue-team" player="{{ match.blue_goalkeeper_id }}" data-rating-change="{{ match.blue_goalkeeper_rating_diff }}>
+                    {{ match.blue_goalkeeper_name }}
+                    <span class="rating-{{ match.blue_goalkeeper_rating_diff > 0 ? 'positive' : 'negative' }}">
+                        {{ match.blue_goalkeeper_rating_diff }}
+                    </span>
+                </td>
+                <td data-command="blue-team" player="{{ match.blue_forward_id }}" data-rating-change="{{ match.blue_forward_rating_diff }}>
+                    {{ match.blue_forward_name }}
+                    <span class="rating-{{ match.blue_forward_rating_diff > 0 ? 'positive' : 'negative' }}">
+                        {{ match.blue_forward_rating_diff }}
+                    </span>
+                </td>
+                <td class="red-team" data-score="{{ match.red_score }}">{{ match.red_score }}</td>
+                <td class="blue-team" data-score="{{ match.blue_score }}">{{ match.blue_score }}</td>
+            </tr>
+        {%  endfor %}
+    </table>
+</div>
