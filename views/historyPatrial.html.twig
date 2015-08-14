@@ -19,19 +19,19 @@
                         {{ match.red_goalkeeper_rating_diff }}
                     </span>
                 </td>
-                <td data-command="red-team" player="{{ match.red_forward_id }} data-rating-change="{{ match.red_forward_rating_diff }}">
+                <td data-command="red-team" player="{{ match.red_forward_id }}" data-rating-change="{{ match.red_forward_rating_diff }}">
                     {{ match.red_forward_name }}
                     <span class="rating-{{ match.red_forward_rating_diff > 0 ? 'positive' : 'negative' }}">
                         {{ match.red_forward_rating_diff }}
                     </span>
                 </td>
-                <td data-command="blue-team" player="{{ match.blue_goalkeeper_id }}" data-rating-change="{{ match.blue_goalkeeper_rating_diff }}>
+                <td data-command="blue-team" player="{{ match.blue_goalkeeper_id }}" data-rating-change="{{ match.blue_goalkeeper_rating_diff }}">
                     {{ match.blue_goalkeeper_name }}
                     <span class="rating-{{ match.blue_goalkeeper_rating_diff > 0 ? 'positive' : 'negative' }}">
                         {{ match.blue_goalkeeper_rating_diff }}
                     </span>
                 </td>
-                <td data-command="blue-team" player="{{ match.blue_forward_id }}" data-rating-change="{{ match.blue_forward_rating_diff }}>
+                <td data-command="blue-team" player="{{ match.blue_forward_id }}" data-rating-change="{{ match.blue_forward_rating_diff }}">
                     {{ match.blue_forward_name }}
                     <span class="rating-{{ match.blue_forward_rating_diff > 0 ? 'positive' : 'negative' }}">
                         {{ match.blue_forward_rating_diff }}
