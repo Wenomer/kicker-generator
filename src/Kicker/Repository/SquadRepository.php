@@ -49,6 +49,7 @@ SQL
             JOIN players p1 ON p1.id = sq.p1_id
             JOIN players p2 ON p2.id = sq.p2_id
             LEFT JOIN matches m ON m.red_team_id = t.id OR m.blue_team_id = t.id
+            WHERE p1.is_active = 1 AND p2.is_active = 1
 
             GROUP BY sq.id
             ORDER BY {$sort} {$order}

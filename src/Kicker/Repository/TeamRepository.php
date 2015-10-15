@@ -2,8 +2,6 @@
 
 namespace Kicker\Repository;
 
-use Kicker\Rating\Elo;
-
 class TeamRepository extends ParticipantRepository
 {
     static $table = 'teams';
@@ -33,6 +31,7 @@ class TeamRepository extends ParticipantRepository
             JOIN players p1 ON p1.id = t.forward_id
             JOIN players p2 ON p2.id = t.goalkeeper_id
             LEFT JOIN matches m ON m.red_team_id = t.id OR m.blue_team_id = t.id
+            WHERE p1.is_active = 1 AND p2.is_active = 1
 
             GROUP BY t.id
             ORDER BY {$sort} {$order}
@@ -73,7 +72,7 @@ SQL;
     public function getWinProbability($redTeamId, $blueTeamId)
     {
         $ratings = $this->getRating([$redTeamId, $blueTeamId]);
-        $elo = $this->$elo;
+        $elo = $this->elo;
 
         return [
             'redWin' => round($elo::getProbability($ratings[$redTeamId], $ratings[$blueTeamId]) * 100),

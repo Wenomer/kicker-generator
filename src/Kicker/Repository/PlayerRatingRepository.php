@@ -15,6 +15,7 @@ class PlayerRatingRepository extends RatingRepository
             FROM player_rating_log
             JOIN players ON players.id = player_id
             JOIN matches ON matches.id = match_id
+            WHERE players.is_active = 1
             ORDER BY matches.date ASC
 SQL;
 

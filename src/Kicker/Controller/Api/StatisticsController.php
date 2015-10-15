@@ -49,7 +49,7 @@ class StatisticsController extends Controller
     public function ratingLogAction()
     {
         $logs = $this->getPlayerRatingRepository()->getLog();
-        $players = $this->getPlayerRepository()->fetchAll();
+        $players = $this->getPlayerRepository()->getActive();
         $matches = $this->getMatchRepository()->fetchAll();
         $chartData = [];
         $dataMatches = [];

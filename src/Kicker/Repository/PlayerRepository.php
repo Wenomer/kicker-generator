@@ -23,6 +23,7 @@ class PlayerRepository extends ParticipantRepository
             FROM players p
             JOIN teams t ON p.id = t.forward_id OR p.id = t.goalkeeper_id
             JOIN matches m ON t.id = m.red_team_id OR t.id = m.blue_team_id
+            WHERE p.is_active = 1
 
             GROUP BY p.id
             ORDER BY {$sort} {$order}
@@ -30,6 +31,14 @@ class PlayerRepository extends ParticipantRepository
 SQL;
 
         return $this->getConnection()->fetchAll($sql, [':sort' => $sort, ':order' => $order]);
+    }
+
+    public function getActive()
+    {
+        $sql = <<<SQL
+            SELECT * FROM players WHERE is_active = 1
+SQL;
+        return $this->getConnection()->fetchAll($sql);
     }
 
 
