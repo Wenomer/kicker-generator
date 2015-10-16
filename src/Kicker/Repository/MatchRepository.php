@@ -70,7 +70,7 @@ SQL;
         $sql = <<<SQL
             SELECT
             DATE_FORMAT(date, '%y-%m-%d') as date,
-            DATE_FORMAT(date, '%W') as day,
+            SUBSTRING(DATE_FORMAT(date, '%W'), 1, 3) as day,
             SUM(red_score) + SUM(blue_score) as goals,
             COUNT(id) as matches
             FROM matches GROUP BY DATE_FORMAT(date, '%y-%m-%d')
