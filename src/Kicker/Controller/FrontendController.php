@@ -8,7 +8,7 @@ class FrontendController extends Controller
     {
         return $this->getTwig()->render('tournament.html.twig', [
             'target' => 'tournament',
-            'players' => $this->getPlayerRepository()->fetchAll()
+            'players' => $this->getPlayerRepository()->getActive()
         ]);
     }
 
@@ -16,7 +16,7 @@ class FrontendController extends Controller
     {
         return $this->getTwig()->render('manualMatch.html.twig', [
             'target' => 'manual-match',
-            'players' => $this->getPlayerRepository()->fetchAll()
+            'players' => $this->getPlayerRepository()->getActive()
         ]);
     }
 
@@ -42,7 +42,7 @@ class FrontendController extends Controller
 
         return $this->getTwig()->render('history.html.twig', [
             'target' => 'history',
-            'players' => $this->getPlayerRepository()->fetchAll(),
+            'players' => $this->getPlayerRepository()->getActive(),
             'history' => $groupedHistory,
         ]);
     }
